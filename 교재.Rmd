@@ -1,0 +1,10 @@
+---
+title: 'Make Your Job : fasteR'
+author: 'BAE'
+date: '2022-04-26'
+output: pdf_document
+---
+
+## install
+
+USING R
