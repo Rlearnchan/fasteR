@@ -6,8 +6,7 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: flatly
-    df_print: paged
+    theme: yeti
   pdf_document:
     latex_engine: xelatex
     fontsize: 12
@@ -15,6 +14,8 @@ output:
 ---
 
 # DAY 1
+
+**R과 통계분석 (Tidyverse 활용) p.4~60**
 
 ## 1. Download
 
@@ -90,7 +91,7 @@ output:
 
 ```
 
-* (윈도우 기준 예시) 만일 [2] "C:/Users/**사용자 이름**/Documents/R/win-library/4.1.3" 경로에 포함된 이름이 한글이라면, 패키지를 다룰 때마다 오류 사인을 접할 공산이 큼.
+* (윈도우 기준 예시) 만일 [2] "C:/Users/**사용자 이름**/Documents/R/win-library/4.1.3" 경로에 한글이 포함된다면, 패키지를 다룰 때마다 오류 사인을 접할 공산이 큼.
 
 * 새로 계정을 만들지 않는 이상, **사용자 이름** 구간 폴더 명은 변경하기도 어려움.
 
@@ -98,13 +99,11 @@ output:
 
 ```{r}
 
-Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.1.3/library') # R의 '개인 라이브러리' 세팅을 수정. 앞서 발견한 '기본(공용) 라이브러리' 경로로 덮어쓰기.
+Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.1.3/library') # R의 '개인' 세팅을 앞서 발견한 '기본(공용)' 경로로 덮어쓰기.
 
 .libPaths('R_LIBS_USER') # 바뀐 '개인 라이브러리'를 패키지 설치 경로로 설정.
 
 ```
-
-* `Sys.setenv()`로 환경변수 변경 $\to$ `.libPaths()`로 적용하는 것. 잘 되었나 체크해보자.
 
 ```{r}
 
@@ -116,12 +115,234 @@ Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.1.3/library') # R의 '개인 
 
 ## 3. Basic Function
 
+### 1) 숫자 계산
+
 ```{r}
 
-3+5-8/3
+3+4-7/3 # 달리 명령어가 필요하진 않으나,
 
-print(3+5-8/3)
+print(3+4-7/3) # print() 함수를 사용할 수도 있음
 
-print(3+5-8/3, digits = 2)
+print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림
 
 ```
+
+```{r}
+
+rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성
+
+stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수
+
+```
+
+* 기본 패키지, 혹은 `library()` 로 장착한 패키지의 함수는 `::` 표기를 사용하지 않아도 됨.
+
+* 여러 패키지를 동시에 사용하는 경우, 유사한 이름의 함수 간 혼동을 피하기 위해 `::` 방식을 사용하기도 함.
+
+```{r}
+
+set.seed(seed = 10)
+
+```
+
+* reproducibility 위해서 난수 생성 규칙을 `set.seed()`로 부여.
+
+```{r}
+
+rnorm(5, 0, 1)
+
+```
+
+### 2) 텍스트
+
+```{r}
+
+'banana' # 작은 따옴표
+
+"banana" # 큰 따옴표 모두 사용 가능
+
+class('banana') # 문자 클래스
+
+```
+
+* `class()` 함수는 자주 쓰니 기억해 둘 필요가 있음.
+
+```{r}
+
+paste0('이제와', '뒤늦게', '무엇을 더 보태려하나') # 문자열 붙여서 하나로 만듦
+
+paste0('이제와 ', '뒤늦게 ', '무엇을 더 보태려하나') # 띄어쓰기를 포함해서 붙이는 게 요령
+
+paste('이제와', '뒤늦게', '무엇을 더 보태려하나') # 한 칸씩 띄어쓰는 게 default인 함수
+
+paste('이제와', '뒤늦게', '무엇을 더 보태려하나', sep = '둠칫') # 사실 sep = ' ' 인자가 숨어있던 것. 바꿀 수도 있음.
+
+```
+
+### 3) 객체
+
+```{r}
+
+BR31 = 'Alien Mom' # 텍스트를 BR31 객체에 저장
+
+br31 = 'Mint Choco' # 텍스트를 br31 객체에 저장
+
+```
+
+```{r}
+
+BR31
+
+br31
+
+paste('Which do you prefer', BR31, 'or', br31) # 객체명을 입력하면 담긴 것을 가져다 씀.
+
+```
+
+* 객체 명을 지을 땐 **대소문자 구별**, 그리고 **첫 글자엔 숫자 및 기호 불가** 특성을 고려해야 함.
+
+### 4) 벡터
+
+```{r}
+
+Yunha = c(4, 8, 6) # 숫자 세 개를 벡터로 묶어 저장
+
+```
+
+```{r}
+
+Yunha
+
+class(Yunha) # 숫자 속성이 그대로 남아 있음
+
+```
+
+```{r}
+
+Yunha = c('Password', 4, 8, 6) # 원소가 하나라도 character가 섞이면
+
+```
+
+```{r}
+
+Yunha # 따옴표 찍힌 것부터 느낌이 다르고,
+
+class(Yunha) # 얄짤없이 전부 character로 저장
+
+```
+
+### 5) 행렬
+
+```{r}
+
+matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), nrow = 3, ncol = 4)
+
+matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), nrow = 3, ncol = 4, dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D'))) # 행이름, 열이름 설정
+
+matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+       dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D')),
+       nrow = 3, ncol = 4) # 코드가 슬슬 길어지니, 엔터를 적극 활용.
+
+```
+
+* 마지막 코드에선 인자들의 순서가 조금 다른데, 이는 인자명을 지정해줬기 때문에 가능한 것. 
+
+* 지정만 잘 돼있으면 섞여도 상관 없음.
+
+```{r}
+
+mat <- matrix(1:12, 3, 4) # matrix() 함수의 처음 세 인자가 data, nrow, ncol 이므로 필요한 값만 입력.
+
+colnames(mat) <- c('A', 'B', 'C', 'D') # 열이름 덮어쓰기
+
+rownames(mat) <- c('가', '나', '다') # 행이름 덮어쓰기
+
+```
+
+* 하다 보면 쉬운 길을 찾아가게 됨.
+
+* `1:12`는 `seq(from = 1, to = 12, by = 1)` 과 같음.
+
+* `<-`는 `=`과 같음.
+
+```{r}
+
+mat
+
+class(mat)
+
+```
+
+### 6) 데이터프레임
+
+```{r}
+
+윤하 <- as.data.frame(Yunha)
+
+matthew <- as.data.frame(mat)
+
+```
+
+* `as.data.frame()` 함수는 벡터, 행렬 등을 인자로 받음.
+
+```{r}
+
+윤하
+
+class(윤하)
+
+```
+
+* 데이터프레임은 row = observation, column = variable 개념이라, 열 이름을 웬만하면 채우려고 하는데, 여기선 character vector 이름인 Yunha를 차용한 모습.
+
+* 벡터 이름 : 벡터 내용 = 변수 이름 : 관측치 느낌으로 해석한 듯.
+
+```{r}
+
+matthew
+
+class(matthew)
+
+```
+
+### 7) 인덱싱
+
+```{r}
+
+Yunha[2] # Yunha 벡터의 두 번째 요소
+
+mat[, 1] # mat 행렬의 첫 열
+
+mat[2, 2] # mat 행렬의 (2, 2) 요소
+
+```
+
+```{r}
+
+matthew$A # matthew 데이터프레임의 변수 A에 속한 값
+
+matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
+
+```
+
+* 데이터프레임의 인덱싱이 조금 더 깔끔한 느낌. 
+
+* 실제 작업에도 용이한바, R의 데이터분석은 대개 데이터프레임 형태를 사용.
+
+* 이를 `Pyhton`에서 구현하기 위해 `Pandas` 라이브러리를 만듦.
+
+## 4. Others
+
+**#** 주석처리
+
+* 코드 설명 작성 : `print(a) # a를 출력한다`
+
+* 해당 부분을 실행에서 제외 : `#print(a)` 
+
+**업데이트** R, RStudio 모두 꾸준히 새 버전이 나오지만, 구 버전을 사용해도 큰 문제 없음
+
+* R은 새로 설치하고 구 버전을 삭제하는 게 제일 간편. RStudio는 알아서 최신의 R을 인식해 사용.
+
+* RStudio는 Help $\to$ Check for Updates 기능을 활용.
+
+# DAY 2
