@@ -112,9 +112,13 @@
 \begin{document}
 \maketitle
 
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \setstretch{1.5}
 \hypertarget{day-1}{%
-\section{DAY 1}\label{day-1}}
+\section{Day 1}\label{day-1}}
 
 \textbf{R과 통계분석 (Tidyverse 활용) p.4\textasciitilde60}
 
@@ -250,8 +254,7 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "C:/Users/KIET/Documents/R/win-library/4.1"
-## [2] "C:/Program Files/R/R-4.1.3/library"
+## [1] "C:/Program Files/R/R-4.1.3/library"
 \end{verbatim}
 
 \begin{itemize}
@@ -269,7 +272,8 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{Sys.setenv}\NormalTok{(}\StringTok{\textquotesingle{}R\_LIBS\_USER\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}C:/Program Files/R/R{-}4.1.3/library\textquotesingle{}}\NormalTok{) }\CommentTok{\# R의 \textquotesingle{}개인\textquotesingle{} 세팅을 앞서 발견한 \textquotesingle{}기본(공용)\textquotesingle{} 경로로 덮어쓰기.}
+\FunctionTok{Sys.setenv}\NormalTok{(}\StringTok{\textquotesingle{}R\_LIBS\_USER\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}C:/Program Files/R/R{-}4.1.3/library\textquotesingle{}}\NormalTok{) }
+\CommentTok{\# R의 \textquotesingle{}개인\textquotesingle{} 세팅을 앞서 발견한 \textquotesingle{}기본(공용)\textquotesingle{} 경로로 덮어쓰기.}
 
 \FunctionTok{.libPaths}\NormalTok{(}\StringTok{\textquotesingle{}R\_LIBS\_USER\textquotesingle{}}\NormalTok{) }\CommentTok{\# 바뀐 \textquotesingle{}개인 라이브러리\textquotesingle{}를 패키지 설치 경로로 설정.}
 \end{Highlighting}
@@ -294,6 +298,62 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
 \begin{verbatim}
 ## [1] TRUE
 \end{verbatim}
+
+\hypertarget{uxc0acuxc6a9uxbc95}{%
+\subsubsection{4) ?, ?? 사용법}\label{uxc0acuxc6a9uxbc95}}
+
+\textbf{?} 모르는 함수 검색하기
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?print}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  대부분의 함수는 R Documentation 이라 해서 정의와 기능, 인자, 간단한
+  사용 예시 등을 요약해둔 페이지를 가지고 있음.
+\item
+  예컨대 \texttt{print()} 함수를 자세히 알고 싶다면, 위에서 처럼
+  \texttt{?} 하나 붙여서 실행하면 됨.
+\end{itemize}
+
+\textbf{??} 모르는 개념, 워딩 검색하기
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{??print}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  하지만 함수 이름조차 모르거나, 기능을 연상할 키워드 정도만 간신히 아는
+  경우도 많음.
+\item
+  \texttt{??}는 모든 R Documentation 에서 해당 단어가 포함된 것을 모두
+  골라 보여줌.
+\item
+  두 가지를 적절히 섞어 사용하는 게 좋음.
+\end{itemize}
+
+\hypertarget{uxad6cuxae00uxb9c1}{%
+\subsubsection{5) 구글링}\label{uxad6cuxae00uxb9c1}}
+
+\begin{itemize}
+\item
+  사실 구글은 모든 걸 알고 있음.
+\item
+  \texttt{str\_dectect()} 식으로 함수 이름 자체를 검색하면 국내외
+  사용자들이 포스팅한 글을 찾아보기 편함.
+\item
+  \texttt{warning} 혹은 \texttt{error} 사인은 해당 문구를 적당히 복사해
+  구글에 그대로 쳐보는 게 좋음.
+\item
+  stackoverflow 같은 개발자 커뮤니티 게시물이 주로 나올 텐데, 같은
+  문제로 고민한 사람들이 꽤 많았기 때문.
+\end{itemize}
 
 \hypertarget{basic-function}{%
 \subsection{3. Basic Function}\label{basic-function}}
@@ -338,7 +398,7 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1.767320470 -0.867301970 -0.616466577 -0.001479266 -1.611300844
+## [1]  0.7764636 -0.4945202  0.4896974 -0.5007566 -0.1512130
 \end{verbatim}
 
 \begin{Shaded}
@@ -348,7 +408,7 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1.2372408 -0.3771459  0.2698625 -0.5838733 -0.3456594
+## [1] -0.5528755  0.2924098 -0.5191754 -0.8114824  0.3399659
 \end{verbatim}
 
 \begin{itemize}
@@ -821,7 +881,91 @@ R}\label{uxd55cuxae00uxc5d0-uxc720uxb3c5-uxcde8uxc57duxd55c-r}}
   RStudio는 Help \(\to\) Check for Updates 기능을 활용.
 \end{itemize}
 
+\hypertarget{quiz}{%
+\subsection{5. Quiz}\label{quiz}}
+
+\textbf{초급} 다음의 행렬을 만들어보자
+
+\begin{verbatim}
+##         var1 var2 var3
+## Case #1   12   21   32
+## Case #2   17   22   34
+## Case #3   19   25   35
+\end{verbatim}
+
+\textbf{중급} \texttt{datasets::iris} 데이터를 가져와 다음을 해결해보자
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  \texttt{iris} 변수의 이름을 \texttt{names()} 함수로 확인하라.
+\item
+  \texttt{iris} 관찰값, 변수의 개수를 \texttt{dim()}, \texttt{nrow()},
+  \texttt{length()} 함수로 확인하라.
+\item
+  \texttt{iris} 처음 세 줄과 마지막 세 줄을 \texttt{head()},
+  \texttt{tail()} 함수로 출력하라.
+\end{enumerate}
+
+\textbf{고급} 다음 코드의 문제점을 지적해보자. 수정본을 참고해도 좋다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{I}\SpecialCharTok{{-}}\NormalTok{DLE\_MEMBERS }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}소연\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}미연\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}민니\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}우기\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}슈화\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{I}\SpecialCharTok{{-}}\NormalTok{DLE\_LYLICS }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Look at you 넌 못 감당해 날\textquotesingle{}}\NormalTok{, }
+                  \StringTok{\textquotesingle{}I got to drink up now 네가 싫다 해도 좋아\textquotesingle{}}\NormalTok{, }
+                  \StringTok{\textquotesingle{}Why are you cranky, boy? 뭘 그리 찡그려 너\textquotesingle{}}\NormalTok{, }
+                  \StringTok{\textquotesingle{}미친 연이라 말해 What\textquotesingle{}}\NormalTok{s the loss to me ya}\StringTok{\textquotesingle{}, }
+\StringTok{                  \textquotesingle{}}\NormalTok{사랑 그깟 거 따위 내 몸에 상처 하나도 어림없지}\StringTok{\textquotesingle{}, }
+\StringTok{                  \textquotesingle{}}\NormalTok{Ye I}\StringTok{\textquotesingle{}m a Tomboy (Umm ah umm)\textquotesingle{}}\NormalTok{, }
+                  \StringTok{\textquotesingle{}Ye I\textquotesingle{}}\NormalTok{ll be the }\FunctionTok{Tomboy}\NormalTok{ (Umm ah)}\StringTok{\textquotesingle{})}
+\StringTok{                  }
+\StringTok{TOMBOY \textless{}{-} data.frame(I{-}DLE\_MEMBERS, I{-}DLE\_LYLICS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error: <text>:6:42: 예상하지 못한 기호(symbol)입니다.
+## 5:                   'Why are you cranky, boy? 뭘 그리 찡그려 너', 
+## 6:                   '미친 연이라 말해 What's
+##                                             ^
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IDLE\_MEMBERS }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}소연\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}미연\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}민니\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}우기\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}슈화\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{IDLE\_LYLICS }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Look at you 넌 못 감당해 날\textquotesingle{}}\NormalTok{, }
+                 \StringTok{\textquotesingle{}I got to drink up now 네가 싫다 해도 좋아\textquotesingle{}}\NormalTok{, }
+                 \StringTok{\textquotesingle{}Why are you cranky, boy? 뭘 그리 찡그려 너\textquotesingle{}}\NormalTok{, }
+                 \StringTok{"미친 연이라 말해 What\textquotesingle{}s the loss to me ya"}\NormalTok{, }
+                 \StringTok{\textquotesingle{}사랑 그깟 거 따위 내 몸에 상처 하나도 어림없지\textquotesingle{}}\NormalTok{, }
+                 \StringTok{"Ye I\textquotesingle{}m a Tomboy (Umm ah umm)"}\NormalTok{, }
+                 \StringTok{"Ye I\textquotesingle{}ll be the Tomboy (Umm ah)"}\NormalTok{)}
+                  
+\NormalTok{TOMBOY }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{MEMBERS =}\NormalTok{ IDLE\_MEMBERS[}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)], }
+                     \AttributeTok{LYLICS =}\NormalTok{ IDLE\_LYLICS)}
+
+\NormalTok{TOMBOY}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   MEMBERS                                         LYLICS
+## 1    민니                    Look at you 넌 못 감당해 날
+## 2    우기      I got to drink up now 네가 싫다 해도 좋아
+## 3    소연     Why are you cranky, boy? 뭘 그리 찡그려 너
+## 4    미연      미친 연이라 말해 What's the loss to me ya
+## 5    우기 사랑 그깟 거 따위 내 몸에 상처 하나도 어림없지
+## 6    민니                   Ye I'm a Tomboy (Umm ah umm)
+## 7    슈화                 Ye I'll be the Tomboy (Umm ah)
+\end{verbatim}
+
 \hypertarget{day-2}{%
-\section{DAY 2}\label{day-2}}
+\section{Day 2}\label{day-2}}
+
+\hypertarget{what-is-tidyverse}{%
+\section{1. What is tidyverse}\label{what-is-tidyverse}}
 
 \end{document}
