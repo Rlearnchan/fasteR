@@ -3,13 +3,13 @@ title: fasteR
 author: Hyeongchan Bae
 date: April 2022
 output:
-  pdf_document:
-    toc: true
-    latex_engine: xelatex
   html_document:
     toc: true
     toc_float: true
     theme: yeti
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
 mainfont: NanumGothic
 monofont: NanumGothic
 fontsize: 12
@@ -670,7 +670,7 @@ write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
 
 1) 차 이름을 새 변수로 설정해 표시하자. `rownames_to_column(var = 'car')` 함수를 사용하라.
 
-2) mpg(miles per gallon), cyl(number of cylinders), hp(gross horsepower) 변수만을 선택하라.
+2) 방금 만든 `car`, 그리고 `mpg`(miles per gallon), `cyl`(number of cylinders), `hp`(gross horsepower) 변수만을 선택하라.
 
 3) 실린더 당 마력을 계산해 새 변수로 나타내라.
 
