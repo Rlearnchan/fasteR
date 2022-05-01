@@ -44,7 +44,7 @@ linestretch: 1.5
 
 * https://github.com/Rlearnchan/fasteR
 
-## 2. Something to know
+## 2. Something to Know
 
 ### 1) "모두 다 같은 아마추어야"
 
@@ -438,5 +438,299 @@ TOMBOY
 
 # Day 2
 
-## 1. What is tidyverse
+## 1. What is Tidyverse
+
+**Package for Packages** 데이터 분석을 위한 패키지의 모음집
+
+```{r, eval = FALSE}
+
+install.packages('tidyverse') # library() 와는 달리 따옴표를 붙여줘야 함, 이하에선 인스톨 생략
+
+```
+
+```{r}
+
+library(tidyverse) # tidyverse 패키지 장착
+
+```
+
+* ggplot2(시각화), dplyr(조작), stringr(텍스트), tibble(데이터프레임) 등의 패키지를 한 번에 로드, 장착할 수 있음.
+
+* Conflicts 란에 제시되는 건 이미 라이브러리를 장착해 사용 중인 함수와 이름이 겹치는 케이스.
+
+* 이제 `filter()` 함수는 `stats::filter()`가 아니라 `dplyr::mutate()`를 우선 선택.
+
+* `stats::filter()` 식으로 풀네임을 써야 해당 함수 사용 가능.
+
+**And then, and then** 직관적인 연결 작업
+
+* tidyverse 계열 함수들은 첫 번째 입력값을 data로 통일. `function(data, actions)` 개념.
+
+* pipe operator `%>%`는 앞선 작업 결과물을 다음 함수의 첫 요소로 대입하는 기능
+
+* `x %>% f(y)` $\to$ `f(x, y)` 식으로 결합 사용하는 게 일반적.
+
+## 2. Exercise : 보도자료 만들기
+
+**2022년 2월 PSI** https://www.kiet.re.kr/kiet_web/?sub_num=1503&state=view&idx=59127&ord=0
+
+### 1) 데이터 로드
+
+```{r, message = FALSE}
+
+library(openxlsx) # openxlsx 패키지 장착
+
+read.xlsx('C:/Users/fragr/Dropbox/GitHub/fasteR/PSI 연습용.xlsx')
+
+```
+
+```{r, message = FALSE}
+
+PSI_ORIGINAL <- read.xlsx('C:/Users/fragr/Dropbox/GitHub/fasteR/PSI 연습용.xlsx') %>% 
+  tibble() # 엑셀 파일을 읽어서 PSI_ORIGINAL 이라 명명. 
+
+PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. class 표시는 덤.
+
+```
+
+* `read.xlsx()` 함수의 첫 인자는 `xlsxFile` 으로, 해당 파일의 경로를 입력해야 함.
+
+* 정확한 경로와 이름을 적으면서, 확장자 명을 꼭 포함할 것.
+
+* 두 번째 인자는 `sheetName`, 미지정 시 첫 번째 시트를 로드한다. 다중 시트로 이뤄진 엑셀 파일이라면 시트 이름을 지정해주는 게 유용.
+
+* 데이터 프레임을 가져올 땐 `tibble()` 함수를 거쳐서 단정하게 만들자.
+
+* 여담으로 `xlsxFile`, `sheetName` 처럼 영문 가운데 capital을 섞어주는 걸 camel 표기법이라 함.
+
+### 2) 훑어보기
+
+```{r}
+
+PSI_ORIGINAL %>% head() # 상위 순번 관측값만 표시, default = 6개 
+
+PSI_ORIGINAL %>% names() # 변수 이름
+
+PSI_ORIGINAL %>% dim() # dimension 
+
+```
+
+```{r}
+
+PSI_ORIGINAL$구분 # 데이터 '구분' 열에 담긴 관측값들
+
+PSI_ORIGINAL[2, ] # 데이터 2열 관측값
+
+```
+
+### 3) 응답자 비율 구하기
+
+```{r}
+
+PSI_ORIGINAL %>% # 원본 데이터에서
+  select(구분, 응답수) %>% # 구분, 응답수 열을 고른 다음
+  mutate(비율 = 응답수/235*100) # 새로운 열을 추가하는데, 얘는 응답수/235*100 계산값임.
+
+```
+
+* `select(data_table, columns, ... )` 원하는 column 고르기. 위치 인덱스나 변수 명을 적으면 됨.
+
+* `select(-1)` 식으로 쓰면, 첫 번째 열을 제외하고 모두 선택.
+
+* 변수 명에 띄어쓰기가 있다면, 해당 이름 전체를 따옴표나 accent 기호로 감싸야 함.
+
+* `mutate(data_table, var_name = new_data, ...)` 새로운 열 만들기(덮어쓰기 가능).
+
+```{r}
+
+PSI_RATE.1 <- PSI_ORIGINAL %>%
+  select(구분, 응답수) %>%
+  mutate(비율 = 응답수/235*100) # 앞서 만든 데이터를 하나의 객체로 저장해두자.
+
+PSI_RATE.2 <- PSI_RATE.1 %>% # 아까 하던 거에서
+  mutate(비율 = round(비율, digits = 1)) %>% # 비율 값은 반올림해서 덮어씌우고
+  slice(1:18) # 필요한 row만 선택하자.
+
+PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣기가 애매.
+
+```
+
+* `slice(data_table, rows, ...)` 원하는 row 고르기. 
+
+```{r}
+
+PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 17, 18), ] # 순서를 바꾸면 되지
+
+APPENDIX.1 <- PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 17, 18), ] # 완성품 저장
+
+```
+
+* 완성품, 중간 작업물은 네이밍 규칙을 달리 가져가는 게 편하다.
+
+* 객체를 왕창 만들다보면 헷갈릴 일이 생기기 마련.
+
+### 4) 기상도 만들기
+
+```{r}
+
+PSI_WEATHER.1 <- PSI_ORIGINAL %>%
+  select(3, '경기현황', `시장판매현황`, 수출현황,
+         생산수준현황, 투자액현황, 채산성현황) # 인덱스, '변수명', `변수명`, 변수명 모두 가능
+
+PSI_WEATHER.1
+  
+```
+
+```{r}
+
+PSI_WEATHER.2 <- PSI_WEATHER.1 %>%
+  mutate_at(.vars = 2:7, .funs = round) # 2:7열 관측값에 반올림 적용
+
+PSI_WEATHER.2
+
+```
+
+* `mutate_at(data_table, .vars, .funs, ...)` 는 `mutate()`의 고급 버전.
+
+* `.funs`에 입력한 함수를 `.vars`에 입력한 변수에 일괄 적용하고 덮어씌움.
+
+```{r}
+
+PSI_WEATHER.3 <- PSI_WEATHER.2[c(1, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 2, 3, 4), ]
+
+colnames(PSI_WEATHER.3) <- c('구분', '업황', '내수', '수출', '생산수준', '투자액', '채산성')
+
+PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름
+
+```
+
+* R의 `round()` 함수는 `round(0.5) = 0` 으로 계산해버림.
+
+* 그럼 어떻게 해야할까. 뭐 구글 가야죠.
+
+```{r}
+
+round2 = function(x, n = 0) {
+  posneg = sign(x)
+  z = abs(x)*10^n
+  z = z + 0.5 + sqrt(.Machine$double.eps)
+  z = trunc(z)
+  z = z/10^n
+  z*posneg
+} # 구글 멋쟁이가 만들어둔 함수를 그대로 긁어오자
+
+round(0.5) ; round2(0.5, 0) # 두 번째 인자 n은 digits
+
+```
+
+* 아래 `mutate_at()` 함수에서 오류가 나서, n의 default 값만 `function(x, n = 0)` 으로 수정하자.
+
+* tidyverse 함수에선 직전 작업 값 '.' 으로 표현한다. `.$구분` 으로 적어도 해당 흐름 내에선 '작업 중이던 데이터프레임의 구분 열' 쯤으로 인식하는 셈.
+
+* `.vars`, `.funs`도 유사한 맥락의 네이밍인데, 설명하는 건 강의 레벨을 벗어나므로 스킵.
+
+```{r}
+
+PSI_WEATHER.2 <- PSI_WEATHER.1 %>%
+  mutate_at(.vars = 2:7, .funs = round2) # 반올림 함수 교체
+
+PSI_WEATHER.3 <- PSI_WEATHER.2[c(1, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 2, 3, 4), ]
+
+colnames(PSI_WEATHER.3) <- c('구분', '업황', '내수', '수출', '생산수준', '투자액', '채산성')
+
+PSI_WEATHER.3
+
+APPENDIX.2 <- PSI_WEATHER.3 # 완성품 저장
+
+```
+
+* `PSI_WEATER.2`, `PSI_WEATHER.3` 만드는 코드를 고치자.
+
+* 객체 네이밍을 순차적으로 했어서, 수정할 부분을 빠르게 찾고, 해당 파트만 교체하는 게 어렵지 않다. 
+
+### 5) 엑셀 출력하기
+
+```{r, eval = FALSE}
+
+write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
+           sheetName = c('응답자 비율', '기상도'), # 각각의 시트로 갖는
+           file = 'PSI 보도자료.xlsx') # 엑셀 파일 생성
+
+```
+
+* 작업 중인 폴더에 엑셀 파일이 생성된다.
+
+* list 클래스는 최상위 레벨로, 앞서 다룬 벡터, 행렬, 데이터프레임 등을 원소로 가질 수 있음.
+
+* 가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.
+
+## 3. Quiz
+
+**초급** `datasets::mtcars` 데이터를 가져와 다음을 해결해보자.
+
+1) 차 이름을 새 변수로 설정해 표시하자. `rownames_to_column(var = 'car')` 함수를 사용하라.
+
+2) mpg(miles per gallon), cyl(number of cylinders), hp(gross horsepower) 변수만을 선택하라.
+
+3) 실린더 당 마력을 계산해 새 변수로 나타내라.
+
+```{r}
+
+# 1, 2, 3)
+
+CAR.1 <- datasets::mtcars %>%
+  rownames_to_column(var = 'car') %>%
+  tibble() %>%
+  select(car, mpg, cyl, hp) %>%
+  mutate(hp_per_cyl = hp/cyl)
+
+CAR.1
+
+```
+
+**중급** 다음 작업을 이어서 해보자.
+
+1) 1974년 데이터인데, 이 때도 차는 벤츠가 짱이었나보다. 차 이름에 Merc 문자열을 포함한 관측값은 몇 개인가. `str_detect(pattern = 'Merc')` 함수를 사용하라.
+
+2) 벤츠 차량 데이터만을 추려보자. `str_detect()` 의 결과값(논리값)을 인덱싱에 사용하라.
+
+3) 벤츠 차량의 평균 마력은 얼마인가.
+
+```{r}
+
+# 1)
+
+CAR.1$car %>%
+  str_detect('Merc') %>%
+  sum() # 논리값은 단순 덧셈하면 TRUE = 1, FALSE = 0 으로 계산된다.
+
+# 2)
+
+CAR.2 <- CAR.1[CAR.1$car %>% str_detect('Merc'), ]
+
+CAR.2
+
+# 3)
+
+sum(CAR.2$hp) / 7
+
+```
+
+**고급** 다음 작업을 이어서 해보자.
+
+1) 벤츠 차량의 수, 평균 마력을 구하라. `filter()`와 `summarise()` 함수를 사용하라.
+
+```{r}
+
+# 1)
+
+CAR.3 <- CAR.1 %>%
+  filter(str_detect(.$car, 'Merc')) %>%
+  summarise(number = n(), hp_avg = (sum(hp)/n()))
+
+CAR.3
+
+```
+
+# Day 3
 
