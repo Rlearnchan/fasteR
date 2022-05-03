@@ -1119,10 +1119,14 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 
 # Day 4
 
+## 1. What is Selenium
 
 
 
+## 2. Exercise : 업무포털 로그인
 
 
+
+## 3. Advanced : 아이유 Top 100 수록곡
 
 
