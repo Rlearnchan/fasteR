@@ -3,13 +3,13 @@ title: fasteR
 author: Hyeongchan Bae
 date: May 2022
 output:
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
   html_document:
     toc: true
     toc_float: true
     theme: yeti
-  pdf_document:
-    toc: true
-    latex_engine: xelatex
 mainfont: NanumGothic
 monofont: NanumGothic
 fontsize: 12
