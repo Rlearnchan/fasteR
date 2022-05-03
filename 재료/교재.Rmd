@@ -449,6 +449,7 @@ TOMBOY
 # Day 2
 
 **R과 통계분석 (Tidyverse 활용) p.102~146**
+
 **파이썬 머신러닝 판다스 데이터 분석 p.2~55** 
 
 ## 1. What is Tidyverse
@@ -483,7 +484,7 @@ library(tidyverse) # tidyverse 패키지 장착
 
 * `x %>% f(y)` $\to$ `f(x, y)` 식으로 결합 사용하는 게 일반적.
 
-## 2. Exercise : 보도자료 만들기
+## 2. Exercise : PSI 보도자료 만들기
 
 **2022년 2월 PSI** https://www.kiet.re.kr/kiet_web/?sub_num=1503&state=view&idx=59127&ord=0
 

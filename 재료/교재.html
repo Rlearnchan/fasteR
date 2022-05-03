@@ -1638,7 +1638,7 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <p><strong>Library Path</strong> 패키지 설치 경로에 한글 네이밍이 없도록
 해주세요.</p>
 <pre class="r"><code>.libPaths() # 첫 번째가 default. 개인 폴더가 설정돼 두 개 나오기도 한다.</code></pre>
-<pre><code>## [1] &quot;C:/Program Files/R/R-4.1.3/library&quot;</code></pre>
+<pre><code>## [1] &quot;C:/Program Files/R/R-4.2.0/library&quot;</code></pre>
 <ul>
 <li><p>(윈도우 기준 예시) 만일 [2] “C:/Users/<strong>사용자
 이름</strong>/Documents/R/win-library/4.1.3” 경로에 한글이 포함된다면,
@@ -1653,9 +1653,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 
 .libPaths(&#39;R_LIBS_USER&#39;) # 바뀐 &#39;개인 라이브러리&#39;를 패키지 설치 경로로 설정.</code></pre>
 <pre class="r"><code>.libPaths() # 하나의 경로로 잘 세팅되고,</code></pre>
-<pre><code>## [1] &quot;C:/Program Files/R/R-4.1.3/library&quot;</code></pre>
+<pre><code>## [1] &quot;C:/Program Files/R/R-4.2.0/library&quot;</code></pre>
 <pre class="r"><code>.libPaths() == Sys.getenv(&#39;R_LIBS_USER&#39;) # 개인 라이브러리 경로와도 일치</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 </div>
 <div id="사용법" class="section level3">
 <h3>4) ?, ?? 사용법</h3>
@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -1.1224427 -0.2966385  2.4584771  1.4353468 -0.5251154</code></pre>
+<pre><code>## [1] -0.3211922  0.3864535  0.2187942  0.3216134  0.1350847</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1] -1.0923253  0.3365570 -0.4078976 -1.1546445  0.9646775</code></pre>
+<pre><code>## [1]  0.15442474  0.50547049 -0.79363462  0.01844086 -0.62970642</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -1913,10 +1913,10 @@ I-DLE_LYLICS &lt;- c(&#39;Look at you 넌 못 감당해 날&#39;,
                   &#39;Ye I&#39;ll be the Tomboy (Umm ah)&#39;)
                   
 TOMBOY &lt;- data.frame(I-DLE_MEMBERS, I-DLE_LYLICS)</code></pre>
-<pre><code>## Error: &lt;text&gt;:7:42: 예상하지 못한 기호(symbol)입니다.
+<pre><code>## Error: &lt;text&gt;:7:35: 예상하지 못한 기호(symbol)입니다.
 ## 6:                   &#39;Why are you cranky, boy? 뭘 그리 찡그려 너&#39;, 
 ## 7:                   &#39;미친 연이라 말해 What&#39;s
-##                                             ^</code></pre>
+##                                      ^</code></pre>
 <pre class="r"><code>IDLE_MEMBERS &lt;- c(&#39;소연&#39;, &#39;미연&#39;, &#39;민니&#39;, &#39;우기&#39;, &#39;슈화&#39;)
 
 IDLE_LYLICS &lt;- c(&#39;Look at you 넌 못 감당해 날&#39;, 
@@ -1943,22 +1943,22 @@ TOMBOY</code></pre>
 </div>
 <div id="day-2" class="section level1">
 <h1>Day 2</h1>
-<p><strong>R과 통계분석 (Tidyverse 활용) p.102~146</strong>
-<strong>파이썬 머신러닝 판다스 데이터 분석 p.2~55</strong></p>
+<p><strong>R과 통계분석 (Tidyverse 활용) p.102~146</strong></p>
+<p><strong>파이썬 머신러닝 판다스 데이터 분석 p.2~55</strong></p>
 <div id="what-is-tidyverse" class="section level2">
 <h2>1. What is Tidyverse</h2>
 <p><strong>Package for Packages</strong> 데이터 분석을 위한 패키지의
 모음집</p>
 <pre class="r"><code>install.packages(&#39;tidyverse&#39;) # library() 와는 달리 따옴표를 붙여줘야 함, 이하에선 인스톨 생략</code></pre>
 <pre class="r"><code>library(tidyverse) # tidyverse 패키지 장착</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.6     v dplyr   1.0.8
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+## ✔ tibble  3.1.6     ✔ dplyr   1.0.9
+## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
+## ✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <ul>
 <li><p>ggplot2(시각화), dplyr(조작), stringr(텍스트),
 tibble(데이터프레임) 등의 패키지를 한 번에 로드, 장착할 수
@@ -1980,8 +1980,8 @@ tibble(데이터프레임) 등의 패키지를 한 번에 로드, 장착할 수
 사용하는 게 일반적.</p></li>
 </ul>
 </div>
-<div id="exercise-보도자료-만들기" class="section level2">
-<h2>2. Exercise : 보도자료 만들기</h2>
+<div id="exercise-psi-보도자료-만들기" class="section level2">
+<h2>2. Exercise : PSI 보도자료 만들기</h2>
 <p><strong>2022년 2월 PSI</strong> <a href="https://www.kiet.re.kr/kiet_web/?sub_num=1503&amp;state=view&amp;idx=59127&amp;ord=0" class="uri">https://www.kiet.re.kr/kiet_web/?sub_num=1503&amp;state=view&amp;idx=59127&amp;ord=0</a></p>
 <div id="데이터-로드" class="section level3">
 <h3>1) 데이터 로드</h3>
@@ -2080,20 +2080,20 @@ read.xlsx(&#39;PSI 연습용.xlsx&#39;)</code></pre>
   tibble() # 엑셀 파일을 읽어서 PSI_ORIGINAL 이라 명명. 
 
 PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. class 표시는 덤.</code></pre>
-<pre><code>## # A tibble: 21 x 20
+<pre><code>## # A tibble: 21 × 20
 ##     연도    월 구분  응답수 경기현황 경기전망 시장판매현황 시장판매전망 수출현황
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-##  1  2022     2 00_~     235     96.2    111.         103.         114.     106. 
-##  2  2022     2 01_I~     86     94.2    110.         100          113.     110. 
-##  3  2022     2 02_~      76    103.     111.         108.         113.     118. 
-##  4  2022     2 03_~      52     82.7    112.          92.3        121.      82.7
-##  5  2022     2 04_~      42    110.     136.         110.         129.     133. 
-##  6  2022     2 05_~      16    106.     144.         100          119.     112. 
-##  7  2022     2 06_~      26    112.     131.         115.         135.     146. 
-##  8  2022     2 07_~      21     85.7     90.5         76.2         90.5     81.0
-##  9  2022     2 08_~      23     73.9     82.6        104.         104.      95.7
-## 10  2022     2 09_~      22    100      100          100          100      114. 
-## # ... with 11 more rows, and 11 more variables: 수출전망 &lt;dbl&gt;,
+##  1  2022     2 00_…     235     96.2    111.         103.         114.     106. 
+##  2  2022     2 01_I…     86     94.2    110.         100          113.     110. 
+##  3  2022     2 02_…      76    103.     111.         108.         113.     118. 
+##  4  2022     2 03_…      52     82.7    112.          92.3        121.      82.7
+##  5  2022     2 04_…      42    110.     136.         110.         129.     133. 
+##  6  2022     2 05_…      16    106.     144.         100          119.     112. 
+##  7  2022     2 06_…      26    112.     131.         115.         135.     146. 
+##  8  2022     2 07_…      21     85.7     90.5         76.2         90.5     81.0
+##  9  2022     2 08_…      23     73.9     82.6        104.         104.      95.7
+## 10  2022     2 09_…      22    100      100          100          100      114. 
+## # … with 11 more rows, and 11 more variables: 수출전망 &lt;dbl&gt;,
 ## #   생산수준현황 &lt;dbl&gt;, 생산수준전망 &lt;dbl&gt;, 재고수준현황 &lt;dbl&gt;,
 ## #   재고수준전망 &lt;dbl&gt;, 신규수주현황 &lt;dbl&gt;, 신규수주전망 &lt;dbl&gt;,
 ## #   투자액현황 &lt;dbl&gt;, 투자액전망 &lt;dbl&gt;, 채산성현황 &lt;dbl&gt;, 채산성전망 &lt;dbl&gt;</code></pre>
@@ -2113,16 +2113,16 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 <div id="훑어보기" class="section level3">
 <h3>2) 훑어보기</h3>
 <pre class="r"><code>PSI_ORIGINAL %&gt;% head() # 상위 순번 관측값만 표시, default = 6개 </code></pre>
-<pre><code>## # A tibble: 6 x 20
+<pre><code>## # A tibble: 6 × 20
 ##    연도    월 구분   응답수 경기현황 경기전망 시장판매현황 시장판매전망 수출현황
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1  2022     2 00_전~    235     96.2     111.        103.          114.    106. 
+## 1  2022     2 00_전…    235     96.2     111.        103.          114.    106. 
 ## 2  2022     2 01_ICT     86     94.2     110.        100           113.    110. 
-## 3  2022     2 02_장~     76    103.      111.        108.          113.    118. 
-## 4  2022     2 03_소~     52     82.7     112.         92.3         121.     82.7
-## 5  2022     2 04_전~     42    110.      136.        110.          129.    133. 
-## 6  2022     2 05_가~     16    106.      144.        100           119.    112. 
-## # ... with 11 more variables: 수출전망 &lt;dbl&gt;, 생산수준현황 &lt;dbl&gt;,
+## 3  2022     2 02_장…     76    103.      111.        108.          113.    118. 
+## 4  2022     2 03_소…     52     82.7     112.         92.3         121.     82.7
+## 5  2022     2 04_전…     42    110.      136.        110.          129.    133. 
+## 6  2022     2 05_가…     16    106.      144.        100           119.    112. 
+## # … with 11 more variables: 수출전망 &lt;dbl&gt;, 생산수준현황 &lt;dbl&gt;,
 ## #   생산수준전망 &lt;dbl&gt;, 재고수준현황 &lt;dbl&gt;, 재고수준전망 &lt;dbl&gt;,
 ## #   신규수주현황 &lt;dbl&gt;, 신규수주전망 &lt;dbl&gt;, 투자액현황 &lt;dbl&gt;, 투자액전망 &lt;dbl&gt;,
 ## #   채산성현황 &lt;dbl&gt;, 채산성전망 &lt;dbl&gt;</code></pre>
@@ -2142,11 +2142,11 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 ## [16] &quot;15_바이오헬스&quot;     &quot;16_애널리스트&quot;     &quot;17_공공기관및기타&quot;
 ## [19] &quot;18_애널리스트&quot;     &quot;19_공공기관&quot;       &quot;20_기타&quot;</code></pre>
 <pre class="r"><code>PSI_ORIGINAL[2, ] # 데이터 2열 관측값</code></pre>
-<pre><code>## # A tibble: 1 x 20
+<pre><code>## # A tibble: 1 × 20
 ##    연도    월 구분   응답수 경기현황 경기전망 시장판매현황 시장판매전망 수출현황
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
 ## 1  2022     2 01_ICT     86     94.2     110.          100         113.     110.
-## # ... with 11 more variables: 수출전망 &lt;dbl&gt;, 생산수준현황 &lt;dbl&gt;,
+## # … with 11 more variables: 수출전망 &lt;dbl&gt;, 생산수준현황 &lt;dbl&gt;,
 ## #   생산수준전망 &lt;dbl&gt;, 재고수준현황 &lt;dbl&gt;, 재고수준전망 &lt;dbl&gt;,
 ## #   신규수주현황 &lt;dbl&gt;, 신규수주전망 &lt;dbl&gt;, 투자액현황 &lt;dbl&gt;, 투자액전망 &lt;dbl&gt;,
 ## #   채산성현황 &lt;dbl&gt;, 채산성전망 &lt;dbl&gt;</code></pre>
@@ -2156,7 +2156,7 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 <pre class="r"><code>PSI_ORIGINAL %&gt;% # 원본 데이터에서
   select(구분, 응답수) %&gt;% # 구분, 응답수 열을 고른 다음
   mutate(비율 = 응답수/235*100) # 새로운 열을 추가하는데, 얘는 응답수/235*100 계산값임.</code></pre>
-<pre><code>## # A tibble: 21 x 3
+<pre><code>## # A tibble: 21 × 3
 ##    구분          응답수   비율
 ##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 00_전체          235 100   
@@ -2169,7 +2169,7 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 ##  8 07_디스플레이     21   8.94
 ##  9 08_반도체         23   9.79
 ## 10 09_기계           22   9.36
-## # ... with 11 more rows</code></pre>
+## # … with 11 more rows</code></pre>
 <ul>
 <li><p><code>select(data_table, columns, ... )</code> 원하는 column
 고르기. 위치 인덱스나 변수 명을 적으면 됨.</p></li>
@@ -2189,7 +2189,7 @@ PSI_RATE.2 &lt;- PSI_RATE.1 %&gt;% # 아까 하던 거에서
   slice(1:18) # 필요한 row만 선택하자.
 
 PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣기가 애매.</code></pre>
-<pre><code>## # A tibble: 18 x 3
+<pre><code>## # A tibble: 18 × 3
 ##    구분              응답수  비율
 ##    &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;
 ##  1 00_전체              235 100  
@@ -2214,7 +2214,7 @@ PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣
 <li><code>slice(data_table, rows, ...)</code> 원하는 row 고르기.</li>
 </ul>
 <pre class="r"><code>PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 17, 18), ] # 순서를 바꾸면 되지</code></pre>
-<pre><code>## # A tibble: 17 x 3
+<pre><code>## # A tibble: 17 × 3
 ##    구분              응답수  비율
 ##    &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;
 ##  1 01_ICT                86  36.6
@@ -2248,7 +2248,7 @@ PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣
          생산수준현황, 투자액현황, 채산성현황) # 인덱스, &#39;변수명&#39;, `변수명`, 변수명 모두 가능
 
 PSI_WEATHER.1</code></pre>
-<pre><code>## # A tibble: 21 x 7
+<pre><code>## # A tibble: 21 × 7
 ##    구분       경기현황 시장판매현황 수출현황 생산수준현황 투자액현황 채산성현황
 ##    &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 ##  1 00_전체        96.2        103.     106.         106.       109.        86.4
@@ -2258,15 +2258,15 @@ PSI_WEATHER.1</code></pre>
 ##  5 04_전자       110.         110.     133.         124.       102.       107. 
 ##  6 05_가전       106.         100      112.         112.       100        112. 
 ##  7 06_핸드폰     112.         115.     146.         131.       104.       104. 
-##  8 07_디스플~     85.7         76.2     81.0         81.0       90.5       76.2
+##  8 07_디스플…     85.7         76.2     81.0         81.0       90.5       76.2
 ##  9 08_반도체      73.9        104.      95.7        122.       109.        60.9
 ## 10 09_기계       100          100      114.          95.5       95.5       77.3
-## # ... with 11 more rows</code></pre>
+## # … with 11 more rows</code></pre>
 <pre class="r"><code>PSI_WEATHER.2 &lt;- PSI_WEATHER.1 %&gt;%
   mutate_at(.vars = 2:7, .funs = round) # 2:7열 관측값에 반올림 적용
 
 PSI_WEATHER.2</code></pre>
-<pre><code>## # A tibble: 21 x 7
+<pre><code>## # A tibble: 21 × 7
 ##    구분       경기현황 시장판매현황 수출현황 생산수준현황 투자액현황 채산성현황
 ##    &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 ##  1 00_전체          96          103      106          106        109         86
@@ -2276,10 +2276,10 @@ PSI_WEATHER.2</code></pre>
 ##  5 04_전자         110          110      133          124        102        107
 ##  6 05_가전         106          100      112          112        100        112
 ##  7 06_핸드폰       112          115      146          131        104        104
-##  8 07_디스플~       86           76       81           81         90         76
+##  8 07_디스플…       86           76       81           81         90         76
 ##  9 08_반도체        74          104       96          122        109         61
 ## 10 09_기계         100          100      114           95         95         77
-## # ... with 11 more rows</code></pre>
+## # … with 11 more rows</code></pre>
 <ul>
 <li><p><code>mutate_at(data_table, .vars, .funs, ...)</code> 는
 <code>mutate()</code>의 고급 버전.</p></li>
@@ -2291,7 +2291,7 @@ PSI_WEATHER.2</code></pre>
 colnames(PSI_WEATHER.3) &lt;- c(&#39;구분&#39;, &#39;업황&#39;, &#39;내수&#39;, &#39;수출&#39;, &#39;생산수준&#39;, &#39;투자액&#39;, &#39;채산성&#39;)
 
 PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름</code></pre>
-<pre><code>## # A tibble: 16 x 7
+<pre><code>## # A tibble: 16 × 7
 ##    구분           업황  내수  수출 생산수준 투자액 채산성
 ##    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 00_전체          96   103   106      106    109     86
@@ -2344,7 +2344,7 @@ PSI_WEATHER.3 &lt;- PSI_WEATHER.2[c(1, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16
 colnames(PSI_WEATHER.3) &lt;- c(&#39;구분&#39;, &#39;업황&#39;, &#39;내수&#39;, &#39;수출&#39;, &#39;생산수준&#39;, &#39;투자액&#39;, &#39;채산성&#39;)
 
 PSI_WEATHER.3</code></pre>
-<pre><code>## # A tibble: 16 x 7
+<pre><code>## # A tibble: 16 × 7
 ##    구분           업황  내수  수출 생산수준 투자액 채산성
 ##    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 00_전체          96   103   106      106    109     86
@@ -2393,7 +2393,7 @@ USTRADE &lt;- read_csv(&#39;미국수출 연습용.csv&#39;)</code></pre>
 <li>UN Commodity Trade 자료의 일부.</li>
 </ul>
 <pre class="r"><code>USTRADE # read_csv() 사용하면 tibble 형태로 저장</code></pre>
-<pre><code>## # A tibble: 82,487 x 35
+<pre><code>## # A tibble: 82,487 × 35
 ##    Classification  Year Period `Period Desc.` `Aggregate Level` `Is Leaf Code`
 ##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;          &lt;dbl&gt;
 ##  1 H5              2020   2020           2020                 6              1
@@ -2406,13 +2406,13 @@ USTRADE &lt;- read_csv(&#39;미국수출 연습용.csv&#39;)</code></pre>
 ##  8 H5              2020   2020           2020                 6              1
 ##  9 H5              2020   2020           2020                 6              1
 ## 10 H5              2020   2020           2020                 6              1
-## # ... with 82,477 more rows, and 29 more variables: `Trade Flow Code` &lt;dbl&gt;,
+## # … with 82,477 more rows, and 29 more variables: `Trade Flow Code` &lt;dbl&gt;,
 ## #   `Trade Flow` &lt;chr&gt;, `Reporter Code` &lt;dbl&gt;, Reporter &lt;chr&gt;,
 ## #   `Reporter ISO` &lt;chr&gt;, `Partner Code` &lt;dbl&gt;, Partner &lt;chr&gt;,
 ## #   `Partner ISO` &lt;chr&gt;, `2nd Partner Code` &lt;lgl&gt;, `2nd Partner` &lt;lgl&gt;,
 ## #   `2nd Partner ISO` &lt;lgl&gt;, `Customs Proc. Code` &lt;lgl&gt;, Customs &lt;lgl&gt;,
 ## #   `Mode of Transport Code` &lt;lgl&gt;, `Mode of Transport` &lt;lgl&gt;,
-## #   `Commodity Code` &lt;dbl&gt;, Commodity &lt;chr&gt;, `Qty Unit Code` &lt;dbl&gt;, ...</code></pre>
+## #   `Commodity Code` &lt;dbl&gt;, Commodity &lt;chr&gt;, `Qty Unit Code` &lt;dbl&gt;, …</code></pre>
 <pre class="r"><code>USTRADE.1 &lt;- USTRADE %&gt;% 
   select(Year, `Trade Flow Code`, `Trade Flow`, `Reporter Code`,
          Reporter, `Partner Code`, Partner, `Partner ISO`, 
@@ -2435,7 +2435,7 @@ LINK &lt;- read_dta(&#39;연계표 연습용.dta&#39;) %&gt;%
 <li><p>비슷한 방식으로 타 프로그램 사용자와 co-work 가능.</p></li>
 </ul>
 <pre class="r"><code>LINK</code></pre>
-<pre><code>## # A tibble: 6,564 x 2
+<pre><code>## # A tibble: 6,564 × 2
 ##      hsc ksic5
 ##    &lt;dbl&gt; &lt;dbl&gt;
 ##  1   223    NA
@@ -2448,12 +2448,12 @@ LINK &lt;- read_dta(&#39;연계표 연습용.dta&#39;) %&gt;%
 ##  8   290    NA
 ##  9 10110  1291
 ## 10 10111  1291
-## # ... with 6,554 more rows</code></pre>
+## # … with 6,554 more rows</code></pre>
 <pre class="r"><code>LINK.1 &lt;- LINK %&gt;% 
   filter(!is.na(ksic5)) # 한국 분류로의 매칭이 목적이니, ksic5 공란 케이스는 제외
   
 LINK.1 # number of rows가 6564 -&gt; 6552로 축소</code></pre>
-<pre><code>## # A tibble: 6,552 x 2
+<pre><code>## # A tibble: 6,552 × 2
 ##      hsc ksic5
 ##    &lt;dbl&gt; &lt;dbl&gt;
 ##  1 10110  1291
@@ -2466,7 +2466,7 @@ LINK.1 # number of rows가 6564 -&gt; 6552로 축소</code></pre>
 ##  8 10190  1291
 ##  9 10210  1211
 ## 10 10221  1211
-## # ... with 6,542 more rows</code></pre>
+## # … with 6,542 more rows</code></pre>
 <ul>
 <li><p><code>filter(data_table, condition, ...)</code> 함수는 조건에
 맞는 observation만 선택.</p></li>
@@ -2541,7 +2541,7 @@ CAR.1 &lt;- datasets::mtcars %&gt;%
   mutate(hp_per_cyl = hp/cyl)
 
 CAR.1</code></pre>
-<pre><code>## # A tibble: 32 x 5
+<pre><code>## # A tibble: 32 × 5
 ##    car                 mpg   cyl    hp hp_per_cyl
 ##    &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ##  1 Mazda RX4          21       6   110       18.3
@@ -2554,7 +2554,7 @@ CAR.1</code></pre>
 ##  8 Merc 240D          24.4     4    62       15.5
 ##  9 Merc 230           22.8     4    95       23.8
 ## 10 Merc 280           19.2     6   123       20.5
-## # ... with 22 more rows</code></pre>
+## # … with 22 more rows</code></pre>
 <p><strong>중급</strong> 다음 작업을 이어서 해보자.</p>
 <ol style="list-style-type: decimal">
 <li><p>1974년 데이터인데, 이 때도 차는 벤츠가 짱이었나보다. 차 이름에
@@ -2575,7 +2575,7 @@ CAR.1$car %&gt;%
 CAR.2 &lt;- CAR.1[CAR.1$car %&gt;% str_detect(&#39;Merc&#39;), ]
 
 CAR.2</code></pre>
-<pre><code>## # A tibble: 7 x 5
+<pre><code>## # A tibble: 7 × 5
 ##   car           mpg   cyl    hp hp_per_cyl
 ##   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 Merc 240D    24.4     4    62       15.5
@@ -2601,7 +2601,7 @@ CAR.3 &lt;- CAR.1 %&gt;%
   summarise(number = n(), hp_avg = (sum(hp)/n()))
 
 CAR.3</code></pre>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   number hp_avg
 ##    &lt;int&gt;  &lt;dbl&gt;
 ## 1      7   135.</code></pre>
