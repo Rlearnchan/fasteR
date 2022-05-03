@@ -1121,6 +1121,38 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 
 ## 1. What is Selenium
 
+
+
 ## 2. Exercise : 업무포털 로그인
 
+```{r, eval = FALSE}
+
+library(tidyverse) # 데이터 핸들링
+library(rstudioapi) # 터미널 사용
+library(RSelenium) # 크롬 자동화
+library(rvest) # html 해석
+
+ID <- '포털 아이디'
+PW <- '포털 비밀번호'
+
+TERM_COMMAND <- 'java -Dwebdriver.gecko.driver="geckodriver.exe" -jar selenium-server-standalone-4.0.0-alpha-1.jar -port 4445' # 원격으로 두 파일 실행하라는 커맨드
+terminalExecute(command = TERM_COMMAND) # RStudio Terminal 탭 열어서 상기 커맨드 입력
+REMDR = remoteDriver(port = 4445, browserName = 'chrome') # 브라우저로 크롬 선택
+
+REMDR$open() # 크롬 오픈
+
+REMDR$navigate('https://ep.kiet.re.kr/index.do') # 업무 포털 접속해서
+    
+BUTTON_LOGIN <- REMDR$findElement('xpath', '//*[@id="f_login"]/ul/li[3]') # 로그인 버튼
+TEXT_ID <- REMDR$findElement('xpath', '//*[@id="loginId"]') # 아이디 입력창
+TEXT_PW <- REMDR$findElement('xpath', '//*[@id="pwd"]') # 패스워드 입력창을 찾아내고
+    
+TEXT_ID$sendKeysToElement(list(ID)) # 아이디 입력
+TEXT_PW$sendKeysToElement(list(PW)) # 패스워드 입력
+BUTTON_LOGIN$clickElement() # 로그인 버튼 클릭
+
+```
+
 ## 3. Advanced : 아이유 Top 100 수록곡
+
+
