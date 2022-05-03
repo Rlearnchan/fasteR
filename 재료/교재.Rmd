@@ -1,7 +1,7 @@
 ---
 title: fasteR
 author: Hyeongchan Bae
-date: April 2022
+date: May 2022
 output:
   html_document:
     toc: true
@@ -122,7 +122,9 @@ Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.1.3/library')
 **?** 모르는 함수 검색하기
 
 ```{r, eval = FALSE}
+
 ?print
+
 ```
 
 * 대부분의 함수는 R Documentation 이라 해서 정의와 기능, 인자, 간단한 사용 예시 등을 요약해둔 페이지를 가지고 있음.
@@ -132,7 +134,9 @@ Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.1.3/library')
 **??** 모르는 개념, 워딩 검색하기
 
 ```{r, eval = FALSE}
+
 ??print
+
 ```
 
 * 하지만 함수 이름조차 모르거나, 기능을 연상할 키워드 정도만 간신히 아는 경우도 많음.
@@ -383,14 +387,18 @@ matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
 
 * RStudio는 Help $\to$ Check for Updates 기능을 활용.
 
+* 패키지는 Tools $\to$ Check for Package Updates
+
 ## 5. Quiz
 
 **초급** 다음의 행렬을 만들어보자
 
 ```{r, echo = FALSE}
+
 matrix(data = c(12, 17, 19, 21, 22, 25, 32, 34, 35),
        nrow = 3, ncol = 3,
        dimnames = list(paste0('Case #', 1:3), paste0('var', 1:3)))
+
 ```
 
 **중급** `datasets::iris` 데이터를 가져와 다음을 해결해보자
@@ -404,6 +412,7 @@ matrix(data = c(12, 17, 19, 21, 22, 25, 32, 34, 35),
 **고급** 다음 코드의 문제점을 지적해보자. 수정본을 참고해도 좋다.
 
 ```{r, error = TRUE, message = FALSE}
+
 I-DLE_MEMBERS <- c('소연', '미연', '민니', '우기', '슈화')
 
 I-DLE_LYLICS <- c('Look at you 넌 못 감당해 날', 
@@ -415,6 +424,7 @@ I-DLE_LYLICS <- c('Look at you 넌 못 감당해 날',
                   'Ye I'll be the Tomboy (Umm ah)')
                   
 TOMBOY <- data.frame(I-DLE_MEMBERS, I-DLE_LYLICS)
+
 ```
 
 ```{r}
@@ -438,6 +448,9 @@ TOMBOY
 
 # Day 2
 
+**R과 통계분석 (Tidyverse 활용) p.102~146**
+**파이썬 머신러닝 판다스 데이터 분석 p.2~55** 
+
 ## 1. What is Tidyverse
 
 **Package for Packages** 데이터 분석을 위한 패키지의 모음집
@@ -448,7 +461,7 @@ install.packages('tidyverse') # library() 와는 달리 따옴표를 붙여줘�
 
 ```
 
-```{r}
+```{r, error = TRUE}
 
 library(tidyverse) # tidyverse 패키지 장착
 
@@ -480,13 +493,13 @@ library(tidyverse) # tidyverse 패키지 장착
 
 library(openxlsx) # openxlsx 패키지 장착
 
-read.xlsx('C:/Users/fragr/Dropbox/GitHub/fasteR/PSI 연습용.xlsx')
+read.xlsx('PSI 연습용.xlsx')
 
 ```
 
 ```{r, message = FALSE}
 
-PSI_ORIGINAL <- read.xlsx('C:/Users/fragr/Dropbox/GitHub/fasteR/PSI 연습용.xlsx') %>% 
+PSI_ORIGINAL <- read.xlsx('PSI 연습용.xlsx') %>% 
   tibble() # 엑셀 파일을 읽어서 PSI_ORIGINAL 이라 명명. 
 
 PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. class 표시는 덤.
@@ -664,7 +677,128 @@ write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
 
 * 가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.
 
-## 3. Quiz
+## 3. Advanced : 미국 수출데이터 가공하기
+
+```{r, message = FALSE}
+
+library(tidyverse)
+
+USTRADE <- read_csv('미국수출 연습용.csv')
+
+```
+
+* UN Commodity Trade 자료의 일부.
+
+```{r}
+
+USTRADE # read_csv() 사용하면 tibble 형태로 저장
+
+```
+
+```{r}
+
+USTRADE.1 <- USTRADE %>% 
+  select(Year, `Trade Flow Code`, `Trade Flow`, `Reporter Code`,
+         Reporter, `Partner Code`, Partner, `Partner ISO`, 
+         `Commodity Code`, Commodity, `Qty Unit Code`, `Qty Unit`, 
+         Qty, `Trade Value (US$)`) # 필요 변수 선택
+
+USTRADE.1 %>% dim() # 변수 35개 -> 14개
+
+```
+
+* 띄어쓰기가 포함된 변수 명은 앞 뒤를 '' 내지 ``로 감싸야 함.
+
+```{r, message = FALSE}
+
+library(haven) # dta 로드 패키지
+
+LINK <- read_dta('연계표 연습용.dta') %>% 
+  select(hsc, ksic5) # 국제무역코드(hscode), 한국표준산업분류(ksic5)만 선택
+
+```
+
+* STATA를 사용하면 dta 파일로 작업물을 공유하는 경우가 있음.
+
+* R에서는 해당 파일을 haven 패키지를 사용해 입출력.
+
+* 비슷한 방식으로 타 프로그램 사용자와 co-work 가능.
+
+```{r}
+
+LINK
+
+```
+
+```{r}
+
+LINK.1 <- LINK %>% 
+  filter(!is.na(ksic5)) # 한국 분류로의 매칭이 목적이니, ksic5 공란 케이스는 제외
+  
+LINK.1 # number of rows가 6564 -> 6552로 축소
+
+```
+
+* `filter(data_table, condition, ...)` 함수는 조건에 맞는 observation만 선택.
+
+* `is.na()` 함수는 결측치, 즉 `NA`인 경우 `TRUE`를 출력.
+
+* `!` 연산자는 부정, not을 의미.
+
+* 따라서 observation인데, ksic5 변수가 NA인 경우는 배제하고 LINK.1에 저장하겠다는 것.
+
+```{r}
+
+MANUFACTURE_KOREA <- seq(10, 34) # ksic5에서 제조업 파트는 10~34로 시작
+
+temp1 <- rep(0, nrow(LINK.1)) # 영벡터
+
+for (i in seq_along(MANUFACTURE_KOREA)) { # i = 10, 11, ..., 34에 대해 다음 작업 반복
+  
+  temp2 <- str_starts(string = as.character(LINK.1$ksic5), # ksic5가
+                      pattern = as.character(MANUFACTURE_KOREA[i])) # 제조업 파트로 시작하면 TRUE
+  
+  temp1 <- temp1 + temp2 # 사칙연산에서 TRUE = 1이므로, 영벡터에 1 남기게 됨.
+  
+}
+
+temp1 %>% head() # temp1은 제조업인 경우 1이 채워진 벡터
+
+temp1 %>% sum() # 6413개 observation이 제조업에 해당
+
+TESTER <- temp1 %>% as.logical() # 논리값으로 변경
+
+TESTER %>% head() # 1은 다시 TRUE로 변환
+
+```
+
+* 논리값은 숫자로 변환하면 0, 1이므로 `sum()`과 궁합이 좋음.
+
+```{r}
+
+MANUFACTURE_WORLD <- LINK.1[TESTER, ]$hsc # 논리값을 인덱싱에 활용
+
+MANUFACTURE_WORLD %>% head() # 한국 분류로 제조업에 해당하는 hscode
+
+```
+
+```{r, eval = FALSE}
+
+USTRADE.2 <- USTRADE.1 %>% 
+  filter(`Commodity Code` %in% MANUFACTURE_WORLD) %>% # 제조업 데이터만 선택
+  arrange(Year, `Commodity Code`) %>% # 연도 순, HS code 순으로 정리
+  relocate(Year, `Commodity Code`, 
+           Commodity, `Trade Value (US$)`) # 주요 변수 앞으로 이동
+
+write_csv(USTRADE.2, '미국수출 연계작업.csv') # 정리한 데이터셋을 csv로 저장
+
+```
+
+* `x %in% y`는 y vector 내에 x라는 인수가 있다면 TRUE를 반환.
+
+* 변수, 객체 이름을 잘 지어야 헷갈리지 않음.
+
+## 4. Quiz
 
 **초급** `datasets::mtcars` 데이터를 가져와 다음을 해결해보자.
 
@@ -733,4 +867,3 @@ CAR.3
 ```
 
 # Day 3
-
