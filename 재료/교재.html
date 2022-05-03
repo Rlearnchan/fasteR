@@ -1641,21 +1641,21 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre><code>## [1] &quot;C:/Program Files/R/R-4.2.0/library&quot;</code></pre>
 <ul>
 <li><p>(윈도우 기준 예시) 만일 [2] “C:/Users/<strong>사용자
-이름</strong>/Documents/R/win-library/4.1.3” 경로에 한글이 포함된다면,
+이름</strong>/Documents/R/win-library/4.2.0” 경로에 한글이 포함된다면,
 패키지를 다룰 때마다 오류 사인을 접할 공산이 큼.</p></li>
 <li><p>새로 계정을 만들지 않는 이상, <strong>사용자 이름</strong> 구간
 폴더 명은 변경하기도 어려움.</p></li>
 <li><p>다음과 같이 <strong>사용자 이름</strong>이 없는 기본(공용)
 라이브러리를 default로 설정하길 권장.</p></li>
 </ul>
-<pre class="r"><code>Sys.setenv(&#39;R_LIBS_USER&#39; = &#39;C:/Program Files/R/R-4.1.3/library&#39;) 
+<pre class="r"><code>Sys.setenv(&#39;R_LIBS_USER&#39; = &#39;C:/Program Files/R/R-4.2.0/library&#39;) 
 # R의 &#39;개인&#39; 세팅을 앞서 발견한 &#39;기본(공용)&#39; 경로로 덮어쓰기.
 
 .libPaths(&#39;R_LIBS_USER&#39;) # 바뀐 &#39;개인 라이브러리&#39;를 패키지 설치 경로로 설정.</code></pre>
 <pre class="r"><code>.libPaths() # 하나의 경로로 잘 세팅되고,</code></pre>
 <pre><code>## [1] &quot;C:/Program Files/R/R-4.2.0/library&quot;</code></pre>
 <pre class="r"><code>.libPaths() == Sys.getenv(&#39;R_LIBS_USER&#39;) # 개인 라이브러리 경로와도 일치</code></pre>
-<pre><code>## [1] FALSE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="사용법" class="section level3">
 <h3>4) ?, ?? 사용법</h3>
@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -0.3211922  0.3864535  0.2187942  0.3216134  0.1350847</code></pre>
+<pre><code>## [1] -0.6856248  0.3752962 -0.3068507  0.4204525 -0.7358137</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1]  0.15442474  0.50547049 -0.79363462  0.01844086 -0.62970642</code></pre>
+<pre><code>## [1] -1.35420754  0.96303091  0.09585562  1.01196214  0.53754684</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -1980,8 +1980,8 @@ tibble(데이터프레임) 등의 패키지를 한 번에 로드, 장착할 수
 사용하는 게 일반적.</p></li>
 </ul>
 </div>
-<div id="exercise-psi-보도자료-만들기" class="section level2">
-<h2>2. Exercise : PSI 보도자료 만들기</h2>
+<div id="exercise-psi-보도자료" class="section level2">
+<h2>2. Exercise : PSI 보도자료</h2>
 <p><strong>2022년 2월 PSI</strong> <a href="https://www.kiet.re.kr/kiet_web/?sub_num=1503&amp;state=view&amp;idx=59127&amp;ord=0" class="uri">https://www.kiet.re.kr/kiet_web/?sub_num=1503&amp;state=view&amp;idx=59127&amp;ord=0</a></p>
 <div id="데이터-로드" class="section level3">
 <h3>1) 데이터 로드</h3>
@@ -2384,8 +2384,8 @@ PSI_WEATHER.3</code></pre>
 </ul>
 </div>
 </div>
-<div id="advanced-미국-수출데이터-가공하기" class="section level2">
-<h2>3. Advanced : 미국 수출데이터 가공하기</h2>
+<div id="advanced-미국-수출데이터-가공" class="section level2">
+<h2>3. Advanced : 미국 수출데이터 가공</h2>
 <pre class="r"><code>library(tidyverse)
 
 USTRADE &lt;- read_csv(&#39;미국수출 연습용.csv&#39;)</code></pre>
