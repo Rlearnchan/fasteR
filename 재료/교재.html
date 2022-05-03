@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -0.7272428 -0.4217730  2.0185537 -1.3944456 -0.3573605</code></pre>
+<pre><code>## [1]  0.90075566 -0.04563945 -0.34956650  0.21842056  0.29852650</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1] -1.5544899  2.0714564  0.2827966 -1.9538052 -1.2850084</code></pre>
+<pre><code>## [1] -1.10919247  0.67656449  1.34375415  0.04312693 -0.67929861</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -2848,6 +2848,10 @@ write.xlsx(DATA, &#39;서비스업생산지수 업데이트.xlsx&#39;) # 엑셀 
 ##  9 202203 계절조정지수 기계장비 및 관련 물품 도매업 G465  122. 
 ## 10 202203 계절조정지수 건축자재 도매업              G466   90.4
 ## # … with 162 more rows</code></pre>
+<ul>
+<li>번호는 오류 체크용(오류나면 해당 번호 부재)으로 만들었던지라, 최종
+결과물에 굳이 담을 필요는 없음.</li>
+</ul>
 </div>
 </div>
 <div id="day-4" class="section level1">
