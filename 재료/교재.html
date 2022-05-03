@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -0.6856248  0.3752962 -0.3068507  0.4204525 -0.7358137</code></pre>
+<pre><code>## [1] -0.7272428 -0.4217730  2.0185537 -1.3944456 -0.3573605</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1] -1.35420754  0.96303091  0.09585562  1.01196214  0.53754684</code></pre>
+<pre><code>## [1] -1.5544899  2.0714564  0.2827966 -1.9538052 -1.2850084</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -2316,18 +2316,22 @@ PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름</code></p
 <li><p>그럼 어떻게 해야할까. 뭐 구글 가야죠.</p></li>
 </ul>
 <pre class="r"><code>round2 = function(x, n = 0) {
+  
   posneg = sign(x)
   z = abs(x)*10^n
   z = z + 0.5 + sqrt(.Machine$double.eps)
   z = trunc(z)
   z = z/10^n
   z*posneg
+  
 } # 구글 멋쟁이가 만들어둔 함수를 그대로 긁어오자
 
 round(0.5) ; round2(0.5, 0) # 두 번째 인자 n은 digits</code></pre>
 <pre><code>## [1] 0</code></pre>
 <pre><code>## [1] 1</code></pre>
 <ul>
+<li><p><code>function(factors, ...) { what to do }</code> 식으로 사용자
+함수를 정의할 수 있음.</p></li>
 <li><p>아래 <code>mutate_at()</code> 함수에서 오류가 나서, n의 default
 값만 <code>function(x, n = 0)</code> 으로 수정하자.</p></li>
 <li><p>tidyverse 함수에선 직전 작업 값 ‘.’ 으로 표현한다.
@@ -2609,6 +2613,245 @@ CAR.3</code></pre>
 </div>
 <div id="day-3" class="section level1">
 <h1>Day 3</h1>
+<div id="what-is-api" class="section level2">
+<h2>1. What is API</h2>
+<p><strong>Computers’ Talk</strong> 컴퓨터나 컴퓨터 프로그램 사이의
+연결</p>
+<ul>
+<li><p>language for computer 라서, 사람인 우리가 보고 쓰려면 일정 부분
+배워야.</p></li>
+<li><p>사람 보라고 만든 인터페이스는 UI(User Interface), 예컨대 삼성
+갤럭시는 One UI 4.1</p></li>
+<li><p>API(Application Programming Interface)에 대한 짧은 클립을
+추천.</p></li>
+<li><p>노마드코더, API 기초개념 <a href="https://youtu.be/iyFHfzCRHA8" class="uri">https://youtu.be/iyFHfzCRHA8</a></p></li>
+</ul>
+<p><strong>Kosis Open API</strong> 국가통계포털 공유서비스</p>
+<ul>
+<li><p><a href="https://kosis.kr/openapi/introduce/introduce_01List.jsp" class="uri">https://kosis.kr/openapi/introduce/introduce_01List.jsp</a></p></li>
+<li><p>통계 데이터를 프로그램 상에서 바로 로드, 작업할 수 있음.</p></li>
+<li><p>호출키(+인증키), 항목 설정 등으로 이뤄진 URL을 통해 데이터를
+받아옴.</p></li>
+<li><p>통계청뿐만 아니라 한은, 공공데이터포털, DART 등 대부분의 정보처는
+API 서비스를 제공.</p></li>
+</ul>
+</div>
+<div id="exercise-서비스업생산지수-업데이트" class="section level2">
+<h2>2. Exercise : 서비스업생산지수 업데이트</h2>
+<p><strong>서비스업 생산지수</strong> <a href="http://kosis.kr/statHtml/statHtml.do?orgId=101&amp;tblId=DT_1F01501&amp;conn_path=I2" class="uri">http://kosis.kr/statHtml/statHtml.do?orgId=101&amp;tblId=DT_1F01501&amp;conn_path=I2</a></p>
+<div id="데이터-이용-신청" class="section level3">
+<h3>1) 데이터 이용 신청</h3>
+<p><strong>최초 사용자가, URL 생성 방식으로 진행함을 가정</strong></p>
+<ul>
+<li><p>서비스이용 <span class="math inline">\(\to\)</span> 통계자료 탭을
+눌러서 간단한 신청 폼을 작성.</p></li>
+<li><p>자료등록 메뉴로 이동, 통계조사명 란에 ‘서비스업동향조사’ 입력하고
+검색.</p></li>
+<li><p>서비스업동향조사 내 통계표가 여럿 나오는데, 2페이지의 산업별
+서비스업생산지수의 사용여부 체크하고 자료등록.</p></li>
+</ul>
+</div>
+<div id="상세-조건-설정" class="section level3">
+<h3>2) 상세 조건 설정</h3>
+<ul>
+<li><p>URL생성 메뉴로 이동, URL 생성 조건을 설정하자.</p></li>
+<li><p>통계청 포털에서 체크박스 누르던 파트를 옮겨놓은 것.</p></li>
+<li><p>필요한 데이터는 <strong>불변/계절조정지수</strong>의 최근값인데,
+<strong>1레벨의 총지수</strong>와 <strong>3레벨 모든 항목</strong>이
+담겨있어야 함.</p></li>
+<li><p>조회구분 = 시계열 선택</p></li>
+<li><p>분류는 조금 길어서 다음을 순차적으로 진행</p></li>
+<li><p>개별 옆의 선택 버튼 클릭</p></li>
+<li><p>업종별 옆의 부등호를 등호로 교체</p></li>
+<li><p>1을 3으로 교체하고 이동 버튼 클릭 (3레벨 분기로 전환)</p></li>
+<li><p>체크박스 일괄 선택하고, 선택 버튼 눌러서 설정 저장</p></li>
+<li><p>다시 개별 옆의 선택 버튼 클릭</p></li>
+<li><p>총지수도 체크해 선택 버튼 클릭</p></li>
+<li><p>항목의 불변지수, 계절조정지수 체크</p></li>
+<li><p>활용 자료명에 ‘서비스업생산지수 업데이트’ 입력</p></li>
+<li><p>URL생성 버튼 클릭</p></li>
+<li><p>너무 많이 선택했다고 에러 사인. 3레벨 산업 분기를 전부 체크한
+탓으로 보임.</p></li>
+<li><p>원래는 대용량 데이터로 개별 신청해야 하나, 나름 대응 방안이 있음.
+아래서 자세히 설명.</p></li>
+<li><p>우선 불변지수 하나만 체크해서 URL 생성.</p></li>
+<li><p>조금 기다리면 항목별(산업별)로 총 86개의 URL이 만들어짐.</p></li>
+</ul>
+</div>
+<div id="단일-데이터-로드" class="section level3">
+<h3>3) 단일 데이터 로드</h3>
+<ul>
+<li><p>첫 번째 <strong>불변지수x수도업</strong>의 URL 보기를
+클릭해보자.</p></li>
+<li><p>해당 URL을 복사해 다음과 같이 로드.</p></li>
+</ul>
+<pre class="r"><code>library(tidyverse) # 데이터 핸들링
+library(jsonlite) # JSON 파일 로드
+
+URL &lt;- &#39;https://kosis.kr/openapi/statisticsData.do?method=getList&amp;apiKey=&lt;인증키&gt;=&amp;format=json&amp;jsonVD=Y&amp;userStatsId=&lt;아이디&gt;/101/DT_1KS2015/2/1/&lt;URL 고유번호&gt;_1&amp;prdSe=M&amp;newEstPrdCnt=3&#39;
+
+SERVICE &lt;- fromJSON(URL) %&gt;% tibble()
+
+SERVICE</code></pre>
+<pre><code>## # A tibble: 3 × 16
+##   TBL_NM       PRD_DE TBL_ID ITM_NM ITM_NM_ENG ITM_ID UNIT_NM ORG_ID UNIT_NM_ENG
+##   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;      
+## 1 산업별 서비… 202201 DT_1K… 불변…  Volume     T2     2015＝… 101    2015＝100  
+## 2 산업별 서비… 202202 DT_1K… 불변…  Volume     T2     2015＝… 101    2015＝100  
+## 3 산업별 서비… 202203 DT_1K… 불변…  Volume     T2     2015＝… 101    2015＝100  
+## # … with 7 more variables: C1_OBJ_NM &lt;chr&gt;, C1_OBJ_NM_ENG &lt;chr&gt;, DT &lt;chr&gt;,
+## #   PRD_SE &lt;chr&gt;, C1 &lt;chr&gt;, C1_NM &lt;chr&gt;, C1_NM_ENG &lt;chr&gt;</code></pre>
+<ul>
+<li><p><code>fromJSON(source, ...)</code> 함수는 URL, 로컬 JSON파일 등을
+읽어서 데이터 프레임으로 출력.</p></li>
+<li><p>최근 3개월 자료를 default로 설정해둔 바, 3개의 row가
+로드됨.</p></li>
+<li><p>16개의 column이 생성되었는데, 네이밍 요령은 <strong>개발
+가이드</strong>란 이름으로 다음에서 제공.</p></li>
+<li><p><a href="https://kosis.kr/openapi/devGuide/devGuide_0201List.jsp" class="uri">https://kosis.kr/openapi/devGuide/devGuide_0201List.jsp</a></p></li>
+<li><p><strong>통계표선택 방법</strong>의 <strong>출력결과</strong>
+항목을 보면 해당 column에 어떤 variable이 담겼는지 알 수 있음.</p></li>
+</ul>
+<pre class="r"><code>temp &lt;- SERVICE %&gt;% 
+  select(TBL_NM, # 통계표 이름
+         PRD_DE, # 시점
+         ITM_NM, # 지수(항목)
+         C1_NM, # 산업(분류)
+         C1, # 산업 코드
+         DT) %&gt;% # 지수값
+  mutate(DT = as.double(DT)) # 값은 숫자 클래스로 변경
+  
+colnames(temp) &lt;- c(&#39;통계&#39;, &#39;시점&#39;, &#39;지수&#39;, &#39;산업&#39;, &#39;코드&#39;, &#39;값&#39;) # 직관적인 네이밍으로 변경
+
+SERVICE.1 &lt;- temp 
+
+rm(temp) # 임시 객체 삭제
+
+SERVICE.1 # 필요한 값만 정리</code></pre>
+<pre><code>## # A tibble: 3 × 6
+##   통계                                  시점   지수     산업   코드     값
+##   &lt;chr&gt;                                 &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1 산업별 서비스업생산지수 (2015＝100.0) 202201 불변지수 수도업 E360  108. 
+## 2 산업별 서비스업생산지수 (2015＝100.0) 202202 불변지수 수도업 E360   98.2
+## 3 산업별 서비스업생산지수 (2015＝100.0) 202203 불변지수 수도업 E360  104.</code></pre>
+<ul>
+<li>다루는 객체가 많아질수록 헷갈리기 마련. 임시 객체를 활용하는 것도
+방법.</li>
+</ul>
+</div>
+</div>
+<div id="advanced-다중-데이터-로드" class="section level2">
+<h2>3. Advanced : 다중 데이터 로드</h2>
+<ul>
+<li><p>헌데, 이걸 86번 반복할 순 없는 노릇.</p></li>
+<li><p>다시 URL생성 코너로 돌아가, <strong>불변지수x하수, 폐수 및 분뇨
+처리업</strong> 의 URL을 확인하자.</p></li>
+<li><p>자세히 보면 <strong>$prdSe</strong> 앞의 숫자가
+<strong>2</strong>로 변경돼있다.</p></li>
+<li><p>같은 조건에서 URL을 다중 생성하다보니, 다른 부분은 동일하더라도,
+구별 차원에서 숫자를 달리 매겨놓은 것.</p></li>
+<li><p>해당 숫자를 매개로 <code>for()</code> 구문을 사용하면 반복 작업을
+할 수 있겠다.</p></li>
+<li><p>Day 2의 Advanced에 있던 내용과 유사하다. 아래 코드를 차용해도
+좋지만, 가급적 대용량 통계자료 신청 기능을 이용하자.</p></li>
+</ul>
+<pre class="r"><code># 0. what do you need
+
+KEY &lt;- &#39;개인 인증키&#39;
+ID &lt;- &#39;Kosis ID&#39;
+INDEX.1 &lt;- &#39;불변지수 URL 고유번호&#39;
+INDEX.2 &lt;- &#39;계절조정지수 URL 고유번호&#39;
+
+# 1. setting
+
+library(tidyverse) # 데이터 핸들링
+library(jsonlite) # JSON 파일 로드
+library(openxlsx) # 엑셀 입출력
+
+# 2. url
+
+BASE &lt;- paste0(&#39;https://kosis.kr/openapi/statisticsData.do?method=getList&#39;, # 요청
+               &#39;&amp;apiKey=&#39;, KEY, # 인증키
+               &#39;&amp;format=json&amp;jsonVD=Y&#39;, # 포맷 : JSON
+               &#39;&amp;userStatsId=&#39;, ID) # 방식 : 사용자가 기등록한 자료 로드
+
+CORE &lt;- c(INDEX.1, INDEX.2) # 불변지수, 계절조정지수 URL 고유번호
+
+NUMBER &lt;- 1:86 # URL 개수
+
+DATA &lt;- tibble() # 데이터 담을 빈 그릇
+
+# 3. data load
+
+for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
+  
+  temp1 &lt;- tibble() # 데이터 담을 빈 그릇
+  
+  for (i in seq_along(NUMBER)) { # i = 1, 2, ... , 86에 대해서 다음 작업 실행
+    
+    URL &lt;- paste0(BASE, # URL 앞 부분
+                  &#39;101/&#39;, # 통계청
+                  &#39;DT_1KS2015/&#39;, # 산업별 서비스업생산지수(2015=100)
+                  &#39;2/&#39;, # 시계열
+                  &#39;1/&#39;, # 간격 : 1
+                  CORE[k], &#39;_&#39;, NUMBER[i], # URL 나열
+                  &#39;&amp;prdSe=&#39;, &#39;M&#39;, # 주기 : Month
+                  &#39;&amp;newEstPrdCnt=&#39;, &#39;1&#39;) # 최근 1개 자료
+    
+    temp2 &lt;- tryCatch(fromJSON(URL) %&gt;% # fromJSON ~ select 함수를 실행하되,
+                      tibble() %&gt;% 
+                      mutate(번호 = i) %&gt;% 
+                      select(번호, PRD_DE, ITM_NM, C1_NM, C1, DT),
+                      error = function(e) tibble(NULL)) # 오류(데이터 부재) 발생하면 스킵
+    
+    temp1 &lt;- rbind(temp2, temp1) # stacking
+    
+  }
+  
+  temp3 &lt;- temp1 %&gt;% 
+    arrange(nchar(C1), C1) %&gt;% # 분류값 순으로 정렬  
+    mutate_at(vars(DT), as.double) # 수치값 class 숫자로 변경
+  
+  DATA &lt;- rbind(temp3, DATA) # stacking
+  
+}
+
+# 4. finish
+
+rm(list = c(&#39;temp1&#39;, &#39;temp2&#39;, &#39;temp3&#39;)) # 임시 객체 삭제
+
+colnames(DATA)[2:6] &lt;- c(&#39;시점&#39;, &#39;지수&#39;, &#39;산업&#39;, &#39;코드&#39;, &#39;값&#39;) # 변수명 변경
+
+# 5. export
+
+write.xlsx(DATA, &#39;서비스업생산지수 업데이트.xlsx&#39;) # 엑셀 파일로 저장</code></pre>
+<ul>
+<li><p><code>0. what do you need</code> 파트를 본인 경우에 맞게
+수정하자.</p></li>
+<li><p>이걸 덥석 이해했다면, 당신은 본 강의 레벨을 아득히
+넘는다.</p></li>
+</ul>
+<pre class="r"><code>read.xlsx(&#39;서비스업생산지수 업데이트.xlsx&#39;) %&gt;% 
+  tibble() %&gt;% 
+  select(-1) # 첫 번째 열은 삭제</code></pre>
+<pre><code>## # A tibble: 172 × 5
+##    시점   지수         산업                         코드     값
+##    &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                        &lt;chr&gt; &lt;dbl&gt;
+##  1 202203 계절조정지수 총지수                       T     114. 
+##  2 202203 계절조정지수 수도업                       E360  107. 
+##  3 202203 계절조정지수 하수 폐수 및 분뇨 처리업     E370   96.4
+##  4 202203 계절조정지수 자동차 판매업                G451  123. 
+##  5 202203 계절조정지수 자동차 부품 및 이륜차 판매업 G452  116. 
+##  6 202203 계절조정지수 산업용 농축산물 도매업       G462  110. 
+##  7 202203 계절조정지수 음ㆍ식료품 및 담배 도매업    G463  110. 
+##  8 202203 계절조정지수 생활용품 도매업              G464  104. 
+##  9 202203 계절조정지수 기계장비 및 관련 물품 도매업 G465  122. 
+## 10 202203 계절조정지수 건축자재 도매업              G466   90.4
+## # … with 162 more rows</code></pre>
+</div>
+</div>
+<div id="day-4" class="section level1">
+<h1>Day 4</h1>
 </div>
 
 
