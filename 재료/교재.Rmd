@@ -753,7 +753,7 @@ MANUFACTURE_KOREA <- seq(10, 34) # ksic5에서 제조업 파트는 10~34로 시�
 
 temp1 <- rep(0, nrow(LINK.1)) # 영벡터
 
-for (i in seq_along(MANUFACTURE_KOREA)) { # i = 10, 11, ..., 34에 대해 다음 작업 반복
+for (i in seq_along(MANUFACTURE_KOREA)) { # i = 1, 2, ..., 25에 대해 다음 작업 반복
   
   temp2 <- str_starts(string = as.character(LINK.1$ksic5), # ksic5가
                       pattern = as.character(MANUFACTURE_KOREA[i])) # 제조업 파트로 시작하면 TRUE
@@ -771,6 +771,8 @@ TESTER <- temp1 %>% as.logical() # 논리값으로 변경
 TESTER %>% head() # 1은 다시 TRUE로 변환
 
 ```
+
+* `seq_along(vector)` 함수는 1:length(vector) 수열을 출력.
 
 * 논리값은 숫자로 변환하면 0, 1이므로 `sum()`과 궁합이 좋음.
 
