@@ -1132,7 +1132,7 @@ DATA <- tibble() # 데이터 담을 빈 그릇
 
 ```
 
-* 아무 인자도 없는 `tibble()`은 0*0 data frame을 생성.
+* 아무 인자도 없는 `tibble()`은 0x0 data frame을 생성.
 
 * Day 2에서 영벡터 만들었던 것과 같은 맥락.
 

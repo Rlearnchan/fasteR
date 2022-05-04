@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -1.12410764 -0.53640594  0.01059502 -0.06460992  1.50945139</code></pre>
+<pre><code>## [1] -2.8217838 -0.7270704  1.7470444 -2.4946042  0.1297426</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1]  1.0095973 -0.1241894  0.1142330  1.2192692  0.6500730</code></pre>
+<pre><code>## [1]  0.3617940  0.4744292 -0.4882682 -0.8333507  1.1046931</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -2830,7 +2830,7 @@ NUMBER &lt;- 1:86 # URL 개수</code></pre>
 </ul>
 <pre class="r"><code>DATA &lt;- tibble() # 데이터 담을 빈 그릇</code></pre>
 <ul>
-<li><p>아무 인자도 없는 <code>tibble()</code>은 0*0 data frame을
+<li><p>아무 인자도 없는 <code>tibble()</code>은 0x0 data frame을
 생성.</p></li>
 <li><p>Day 2에서 영벡터 만들었던 것과 같은 맥락.</p></li>
 </ul>
