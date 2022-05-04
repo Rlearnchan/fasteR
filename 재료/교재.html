@@ -1701,9 +1701,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 <pre class="r"><code>print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림</code></pre>
 <pre><code>## [1] 4.67</code></pre>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1]  0.5856425 -0.3940810  1.1247208  0.4730477  2.5395679</code></pre>
+<pre><code>## [1] -1.12410764 -0.53640594  0.01059502 -0.06460992  1.50945139</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1]  1.4346949  1.7446728  1.2377793  1.3653342 -0.2019456</code></pre>
+<pre><code>## [1]  1.0095973 -0.1241894  0.1142330  1.2192692  0.6500730</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -1881,6 +1881,23 @@ Updates 기능을 활용.</p></li>
 <li><p>패키지는 Tools <span class="math inline">\(\to\)</span> Check for
 Package Updates</p></li>
 </ul>
+<p><strong>Working Directory</strong> 작업 공간(폴더)을 지정하자</p>
+<ul>
+<li><p>외부 파일을 불러오거나, 외부로 저장할 일이 많음.</p></li>
+<li><p>R은 기본적으로 <code>C:/Users/Document</code>, 즉 내 문서 폴더를
+기본 작업 공간으로 인식.</p></li>
+<li><p>매번 내 문서 폴더에서 작업을 할 순 없는 노릇.</p></li>
+<li><p><code>setwd(folder)</code> 함수의 folder 인자에 원하는 경로를
+입력.</p></li>
+</ul>
+<pre class="r"><code>setwd(&#39;C:\Users\KIET\Documents\GitHub&#39;) # 그대로 붙여넣으면 안 되고,
+
+setwd(&#39;C:/Users/KIET/Documents/GitHub&#39;) # \를 /로 교체해줘야 함.</code></pre>
+<ul>
+<li><p>R에서 <code>\</code> 문자는 정규표현식의 하나로, 슬래시 표현 외에
+약속된 다른 기능을 담당함.</p></li>
+<li><p>그런 차에 <code>/</code>를 경로 기술에 대신 사용하는 듯.</p></li>
+</ul>
 </div>
 <div id="quiz" class="section level2">
 <h2>5. Quiz</h2>
@@ -1952,7 +1969,7 @@ TOMBOY</code></pre>
 <pre class="r"><code>install.packages(&#39;tidyverse&#39;) # library() 와는 달리 따옴표를 붙여줘야 함, 이하에선 인스톨 생략</code></pre>
 <pre class="r"><code>library(tidyverse) # tidyverse 패키지 장착</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+<pre><code>## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
 ## ✔ tibble  3.1.6     ✔ dplyr   1.0.9
 ## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
 ## ✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
@@ -2760,28 +2777,64 @@ SERVICE.1 # 필요한 값만 정리</code></pre>
 KEY &lt;- &#39;개인 인증키&#39;
 ID &lt;- &#39;Kosis ID&#39;
 INDEX.1 &lt;- &#39;불변지수 URL 고유번호&#39;
-INDEX.2 &lt;- &#39;계절조정지수 URL 고유번호&#39;
-
-# 1. setting
+INDEX.2 &lt;- &#39;계절조정지수 URL 고유번호&#39;</code></pre>
+<ul>
+<li><p>#을 이용한 주석은 코드 실행되지 않는 바, 소제목 대용으로도
+좋음.</p></li>
+<li><p>비슷한 내용의 코드라면 덩어리 지어 직관적으로 보이게 하는
+것.</p></li>
+<li><p>코드 구성은 같지만, 개인화된 정보를 기입해야 되는 경우가
+있음.</p></li>
+<li><p>parameter를 앞으로 빼두면 이하 코드에 자동 적용되니
+편함.</p></li>
+<li><p>인턴은 이를 what do you need 코너로 만들어 작성하는 편.</p></li>
+</ul>
+<pre class="r"><code># 1. setting
 
 library(tidyverse) # 데이터 핸들링
 library(jsonlite) # JSON 파일 로드
-library(openxlsx) # 엑셀 입출력
-
-# 2. url
+library(openxlsx) # 엑셀 입출력</code></pre>
+<ul>
+<li><p>필요한 패키지 로드는 가급적 코드 상단에 작성.</p></li>
+<li><p>물론 코드를 짜면서 패키지를 하나씩 추가하기 마련.</p></li>
+<li><p>다만 정리를 위쪽에 해두자는 것.</p></li>
+</ul>
+<pre class="r"><code># 2. url
 
 BASE &lt;- paste0(&#39;https://kosis.kr/openapi/statisticsData.do?method=getList&#39;, # 요청
                &#39;&amp;apiKey=&#39;, KEY, # 인증키
                &#39;&amp;format=json&amp;jsonVD=Y&#39;, # 포맷 : JSON
-               &#39;&amp;userStatsId=&#39;, ID) # 방식 : 사용자가 기등록한 자료 로드
+               &#39;&amp;userStatsId=&#39;, ID) # 방식 : 사용자가 기등록한 자료 로드</code></pre>
+<ul>
+<li><p>개인 URL은 여러 부분으로 분기될 수 있음.</p></li>
+<li><p>본 예시에선 <code>&amp;</code>을 기준으로 인자가 나눠짐.</p></li>
+<li><p><code>paste0()</code> 함수로 어차피 합쳐질 테니 코드 상에선
+쉼표로 분절하고 엔터, 주석 표시.</p></li>
+<li><p>KEY, ID 객체는 앞서 적어둔 값을 받아와 입력.</p></li>
+</ul>
+<pre class="r"><code>CORE &lt;- c(INDEX.1, INDEX.2) # 불변지수, 계절조정지수 URL 고유번호
 
-CORE &lt;- c(INDEX.1, INDEX.2) # 불변지수, 계절조정지수 URL 고유번호
-
-NUMBER &lt;- 1:86 # URL 개수
-
-DATA &lt;- tibble() # 데이터 담을 빈 그릇
-
-# 3. data load
+NUMBER &lt;- 1:86 # URL 개수</code></pre>
+<ul>
+<li><p>산업별 86개 자료를 로드하는 데, 그걸 불변/계절조정지수에서 각각
+해야함.</p></li>
+<li><p>for(k = 1:2, for(i = 1:86, load)) 식으로 loop를 짜야겠다는
+생각.</p></li>
+<li><p>물론 실제 코드 작성은 반대로 이뤄짐. like 역진귀납.</p></li>
+<li><p>구체적으로 URL 1개 <span class="math inline">\(\to\)</span> 그
+코드를 for로 감싸서 URL 84개 <span class="math inline">\(\to\)</span>
+그걸 또 감싸서 84*2개</p></li>
+<li><p>따라서 내부 코드만 잘 짜두면 반복은 쉬움.</p></li>
+<li><p>작업을 말로 설명할 수 있다면, 그걸 하나씩 코드로 바꿔가면 되는
+것.</p></li>
+</ul>
+<pre class="r"><code>DATA &lt;- tibble() # 데이터 담을 빈 그릇</code></pre>
+<ul>
+<li><p>아무 인자도 없는 <code>tibble()</code>은 0*0 data frame을
+생성.</p></li>
+<li><p>Day 2에서 영벡터 만들었던 것과 같은 맥락.</p></li>
+</ul>
+<pre class="r"><code># 3. data load
 
 for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
   
@@ -2814,9 +2867,28 @@ for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
   
   DATA &lt;- rbind(temp3, DATA) # stacking
   
-}
-
-# 4. finish
+}</code></pre>
+<ul>
+<li><p>용례가 어렵지만, <code>rbind(a, b)</code>는 자주 등장하는 기본
+함수.</p></li>
+<li><p>같은 column으로 구성된 a, b 데이터를 row 연장해서 붙임.</p></li>
+<li><p>5x10, 10x10 데이터 테이블을 <code>rbind()</code>로 묶는다면,
+15*10 데이터 테이블이 됨.</p></li>
+<li><p>여기선 0x0, 1x6 데이터를 묶어서 저장하고, 그 1x6 데이터에 새로운
+1x6을 더하고…</p></li>
+<li><p><code>(n+1)x6 = nx6 + 1x6</code> 식으로 지정해 쌓아가는
+것.</p></li>
+<li><p><code>tryCatch(function, 에러대처, ...)</code> 함수는 간혹 통계
+데이터가 없어서 에러, loop 정지되는 경우가 있기에 작성.</p></li>
+<li><p>이런 게 역진으로 올라가면서 생기는 문제고, generalize
+과정이겠음.</p></li>
+<li><p><code>arrange(condition1, condition2, ...)</code>는 row 순서를
+해당 조건에 맞춰 정렬해줌.</p></li>
+<li><p>condition1을 맞추고, condition2를 이어 맞추는 식.</p></li>
+<li><p>여기선 코드의 자릿수(짧으면 1레벨, 길면 3레벨이니까)로 맞추고,
+이어서 코드 문구로 맞춤.</p></li>
+</ul>
+<pre class="r"><code># 4. finish
 
 rm(list = c(&#39;temp1&#39;, &#39;temp2&#39;, &#39;temp3&#39;)) # 임시 객체 삭제
 
@@ -2826,10 +2898,7 @@ colnames(DATA)[2:6] &lt;- c(&#39;시점&#39;, &#39;지수&#39;, &#39;산업&#39;
 
 write.xlsx(DATA, &#39;서비스업생산지수 업데이트.xlsx&#39;) # 엑셀 파일로 저장</code></pre>
 <ul>
-<li><p><code>0. what do you need</code> 파트를 본인 경우에 맞게
-수정하자.</p></li>
-<li><p>이걸 덥석 이해했다면, 당신은 본 강의 레벨을 아득히
-넘는다.</p></li>
+<li>여기까지 덥석 이해했다면, 당신은 본 강의 레벨을 아득히 넘는다.</li>
 </ul>
 <pre class="r"><code>read.xlsx(&#39;서비스업생산지수 업데이트.xlsx&#39;) %&gt;% 
   tibble() %&gt;% 
@@ -2861,6 +2930,29 @@ write.xlsx(DATA, &#39;서비스업생산지수 업데이트.xlsx&#39;) # 엑셀 
 </div>
 <div id="exercise-업무포털-로그인" class="section level2">
 <h2>2. Exercise : 업무포털 로그인</h2>
+<pre class="r"><code>library(tidyverse) # 데이터 핸들링
+library(rstudioapi) # 터미널 사용
+library(RSelenium) # 크롬 자동화
+library(rvest) # html 해석
+
+ID &lt;- &#39;포털 아이디&#39;
+PW &lt;- &#39;포털 비밀번호&#39;
+
+TERM_COMMAND &lt;- &#39;java -Dwebdriver.gecko.driver=&quot;geckodriver.exe&quot; -jar selenium-server-standalone-4.0.0-alpha-1.jar -port 4445&#39; # 원격으로 두 파일 실행하라는 커맨드
+terminalExecute(command = TERM_COMMAND) # RStudio Terminal 탭 열어서 상기 커맨드 입력
+REMDR = remoteDriver(port = 4445, browserName = &#39;chrome&#39;) # 브라우저로 크롬 선택
+
+REMDR$open() # 크롬 오픈
+
+REMDR$navigate(&#39;https://ep.kiet.re.kr/index.do&#39;) # 업무 포털 접속해서
+    
+BUTTON_LOGIN &lt;- REMDR$findElement(&#39;xpath&#39;, &#39;//*[@id=&quot;f_login&quot;]/ul/li[3]&#39;) # 로그인 버튼
+TEXT_ID &lt;- REMDR$findElement(&#39;xpath&#39;, &#39;//*[@id=&quot;loginId&quot;]&#39;) # 아이디 입력창
+TEXT_PW &lt;- REMDR$findElement(&#39;xpath&#39;, &#39;//*[@id=&quot;pwd&quot;]&#39;) # 패스워드 입력창을 찾아내고
+    
+TEXT_ID$sendKeysToElement(list(ID)) # 아이디 입력
+TEXT_PW$sendKeysToElement(list(PW)) # 패스워드 입력
+BUTTON_LOGIN$clickElement() # 로그인 버튼 클릭</code></pre>
 </div>
 <div id="advanced-아이유-top-100-수록곡" class="section level2">
 <h2>3. Advanced : 아이유 Top 100 수록곡</h2>
