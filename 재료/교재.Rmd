@@ -1450,6 +1450,14 @@ write.xlsx(MASTERPIECE, '멜론차트.xlsx') # 차트 원본 데이터를 엑셀
 
 MELON <- read.xlsx('멜론차트.xlsx') %>% tibble()
 
+MELON # 22개년도 멜론차트 TOP100 데이터
+
+filter(MELON, RANK == 1)$TITLE # 연도별 1위곡
+
+```
+
+```{r}
+
 # 6. analysis
 
 # 6-1. TOP100 수록곡이 가장 많은 가수는?
