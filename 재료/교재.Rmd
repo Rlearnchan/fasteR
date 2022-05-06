@@ -16,6 +16,8 @@ fontsize: 12
 linestretch: 1.5    
 ---
 
+\newpage
+
 # Day 1
 
 **R과 통계분석 (Tidyverse 활용) p.4~60**
@@ -470,6 +472,9 @@ TOMBOY
 
 ```
 
+
+\newpage
+
 # Day 2
 
 **R과 통계분석 (Tidyverse 활용) p.102~146**
@@ -714,6 +719,8 @@ write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
 
 * 가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.
 
+\newpage
+
 ## 3. Advanced : 미국 수출데이터 가공
 
 ```{r, message = FALSE}
@@ -904,6 +911,9 @@ CAR.3 <- CAR.1 %>%
 CAR.3
 
 ```
+
+
+\newpage
 
 # Day 3
 
@@ -1230,6 +1240,9 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 ```
 
 * 번호는 오류 체크용(오류나면 해당 번호 부재)으로 만들었던지라, 최종 결과물에 굳이 담을 필요는 없음.
+
+
+\newpage
 
 # Day 4
 
