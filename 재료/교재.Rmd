@@ -1,7 +1,7 @@
 ---
 title: fasteR
 author: Hyeongchan Bae
-date: May 2022
+date: JUNE 2022
 output:
   html_document:
     toc: true
@@ -42,11 +42,13 @@ linestretch: 1.5
 
 * https://www.google.com/intl/ko_kr/chrome
 
-**Extra Files** 인턴의 깃허브 페이지. 강의 노트, 작성 코드 등 추가적인 파일을 업로드 해둠
+**Extra Files** <u>인턴의 깃허브 페이지. 강의 노트, 작성 코드 등 추가적인 파일을 업로드 해둠</u>
 
 * https://github.com/Rlearnchan/fasteR (강의 관련)
 
 * https://github.com/Rlearnchan/KIET_Public (업무 관련)
+
+* Download zip 기능을 쓰거나, R 파일을 열어 코드만 체크하는 식으로 이용.
 
 ## 2. Something to Know
 
@@ -54,15 +56,19 @@ linestretch: 1.5
 
 * 익숙지 않고, 오래 걸리는 게 당연해요.
 
-* 모든 과정을 R로 수행할 필요는 없으니, 잘 안 되면 데이터를 엑셀, STATA 등으로 옮겨 처리해오셔도 좋습니다.
+* 모든 과정을 R로 수행할 필요는 없으니, <u>잘 안 되면 데이터를 엑셀, STATA 등으로 옮겨 처리해오셔도 좋습니다.</u>
+
+* 인턴도 R이 익숙해지면서, 여러 프로그램에 걸쳐있던 작업을 하나씩 구현해보잔 마인드로 배우고 있습니다.
 
 ### 2) R 파일(확장자)
 
 **.R** 작성한 코드
 
-* 좌상단 Script에서 코드 작성 $\to$ 필요한 부분 실행 $\to$ 좌하단 Console 창에서 실행 결과를 확인하는 게 일반적이라, 작업 첫 파트를 저장한 것이라 볼 수 있음.
+* <u>좌상단 Script에서 코드 작성 $\to$ 필요한 부분 실행 $\to$ 좌하단 Console 창에서 실행 결과를 확인</u>하는 게 일반적이라, 작업 첫 파트를 저장한 것이라 볼 수 있음.
 
 * 코드를 적은 메모장쯤 되니, **비슷한 환경**이라면 타인에게 받은 코드를 실행하기만 해도 같은 결과를 시현함.
+
+* 동일한 패키지 설치, 중간 작업물(.Rdata, .Rhistroy) 보유 등이 **비슷한 환경**을 만듦.
 
 **.Rdata** 작업공간 이미지
 
@@ -80,11 +86,13 @@ linestretch: 1.5
 
 * 본 문서도 마크다운으로 작성. 소위 'R로 논문 쓴다' 할 때 등장.
 
+* tex 문법도 지원해, 코드나 수식을 넣기 편함.
+
 ### 3) 한글에 유독 취약한 R
 
-**UTF-8** 인코딩 방식을 변경해주세요. 
+**UTF-8** <u>인코딩 방식을 변경해주세요.</u> 
 
-* Tools $\to$ Global Options $\to$ Code $\to$ Saving 경로.
+* <u>Tools $\to$ Global Options $\to$ Code $\to$ Saving 경로.</u>
 
 * 타인에게 받은, 혹은 건네준 코드 파일에서 한글이 깨져 보인다면 대체로 이 문제.
 
@@ -123,7 +131,7 @@ Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.2.0/library')
 
 ### 4) ?, ?? 사용법
 
-**?** 모르는 함수 검색하기
+**?** <u>모르는 함수 검색하기</u>
 
 ```{r, eval = FALSE}
 
@@ -131,7 +139,7 @@ Sys.setenv('R_LIBS_USER' = 'C:/Program Files/R/R-4.2.0/library')
 
 ```
 
-* 대부분의 함수는 R Documentation 이라 해서 정의와 기능, 인자, 간단한 사용 예시 등을 요약해둔 페이지를 가지고 있음.
+* <u>대부분의 함수는 R Documentation 이라 해서 정의와 기능, 인자, 간단한 사용 예시 등을 요약해둔 페이지를 가지고 있음.</u>
 
 * 예컨대 `print()` 함수를 자세히 알고 싶다면, 위에서 처럼 `?` 하나 붙여서 실행하면 됨.
 
@@ -173,6 +181,8 @@ print(3+4-7/3, digits = 3) # 세 번째 자리에서 반올림
 
 ```
 
+* `print()` 함수엔 `digits` 라는 인자(설정 옵션)가 있음.
+
 ```{r}
 
 rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성
@@ -193,6 +203,8 @@ set.seed(seed = 10)
 
 * reproducibility 위해서 난수 생성 규칙을 `set.seed()`로 부여.
 
+* model 성능을 보려 같은 숫자를 input할 경우나, 지금처럼 같은 결과물을 공유할 때.
+
 ```{r}
 
 rnorm(5, 0, 1)
@@ -211,13 +223,27 @@ class('banana') # 문자 클래스
 
 ```
 
+* 그냥 `banana`라고 치면 `banana` 이름을 가진 객체, 그 속의 값을 호출하란 명령.
+
+* 해당 객체가 부재해서, <u>R과 내가 그런 약속을 한 바 없으므로 에러가 발생할 것.</u> 
+
 * `class()` 함수는 자주 쓰니 기억해 둘 필요가 있음.
+
+* 함수는 인자마다 특정 클래스를 요구하곤 함.
+
+* 예컨대 숫자(double) 자리인데, 텍스트(string)을 입력한다든지. 매우 흔한 오류 케이스.
 
 ```{r}
 
 paste0('이제와', '뒤늦게', '무엇을 더 보태려하나') # 문자열 붙여서 하나로 만듦
 
-paste0('이제와 ', '뒤늦게 ', '무엇을 더 보태려하나') # 띄어쓰기를 포함해서 붙이는 게 요령
+paste0('이제와 ', '뒤늦게 ', '무엇을 더 보태려하나') # 띄어쓰기를 추가해보자
+
+```
+
+* <u>띄어쓰기를 포함한 문구를 `paste0()` 함수로 잇는 게 직관적이면서 유용.</u>
+
+```{r}
 
 paste('이제와', '뒤늦게', '무엇을 더 보태려하나') # 한 칸씩 띄어쓰는 게 default인 함수
 
@@ -241,11 +267,19 @@ BR31
 
 br31
 
+```
+
+* '너 `BR31` 뭔지 알지? 우리 약속했잖아...'
+
+```{r}
+
 paste('Which do you prefer', BR31, 'or', br31) # 객체명을 입력하면 담긴 것을 가져다 씀.
 
 ```
 
-* 객체 명을 지을 땐 **대소문자 구별**, 그리고 **첫 글자엔 숫자 및 기호 불가** 특성을 고려해야 함.
+* <u>객체 명을 지을 땐 **대소문자 구별**, 그리고 **첫 글자엔 숫자 및 기호 불가** 특성을 고려해야 함.</u>
+
+* 괄호나 슬래시처럼 함수 구성, 연산에 쓰일 법한 기호는 특히 오류가 빈번.
 
 ### 4) 벡터
 
@@ -283,17 +317,41 @@ class(Yunha) # 얄짤없이 전부 character로 저장
 
 matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), nrow = 3, ncol = 4)
 
-matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), nrow = 3, ncol = 4, dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D'))) # 행이름, 열이름 설정
+```
 
-matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-       dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D')),
-       nrow = 3, ncol = 4) # 코드가 슬슬 길어지니, 엔터를 적극 활용.
+* `data = what` 해야되는데, `data = 1, 2, 3, ...` 식으로는 정확한 제시가 안 됨.
+
+* R은 `data = 1` 이고, `2, 3, ...`은 `matrix()` 함수의 다른 input 쯤으로 인식.
+
+* 따라서 `1, 2, 3, ...`을 묶어줘야 하고, 여기선 vector를 쓴 것.
+
+```{r}
+
+matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), nrow = 3, ncol = 4, dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D'))) # 행이름, 열이름 설정
 
 ```
 
-* 마지막 코드에선 인자들의 순서가 조금 다른데, 이는 인자명을 지정해줬기 때문에 가능한 것. 
+* 마찬가지로 `dimnames = what` 위해서, 벡터 두 개를 상위 개념인 list로 묶음.
+
+* `scala`, `vector`, `matrix(or dataframe)`, ..., `list`
+
+* `요거트`, `요거트 4개 묶음`, `플레인 4개 + 딸기맛 4개 세일상품`, ..., <u>`장바구니`</u>
+
+* list 아래는 이것저것 다 들어감. 다른 list도 원소로 가질 수 있음.
+
+```{r}
+
+matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+       dimnames = list(c('가', '나', '다'), c('A', 'B', 'C', 'D')),
+       nrow = 3, ncol = 4) # 엔터를 적극 활용.
+
+```
+
+* <u>마지막 코드에선 인자들의 순서가 조금 다른데, 이는 인자명을 지정해줬기 때문에 가능한 것.</u> 
 
 * 지정만 잘 돼있으면 섞여도 상관 없음.
+
+* <u>코드가 길어지면 한 번에 보기 어려우니, 적당한 단위마다 엔터를 쳐주자.</u>
 
 ```{r}
 
@@ -305,11 +363,17 @@ rownames(mat) <- c('가', '나', '다') # 행이름 덮어쓰기
 
 ```
 
-* 하다 보면 쉬운 길을 찾아가게 됨.
-
 * `1:12`는 `seq(from = 1, to = 12, by = 1)` 과 같음.
 
 * `<-`는 `=`과 같음.
+
+* 자주쓰는 함수라면 인자들 위치를 대개 아니까, input 값만 순서에 맞춰 넣어도 좋다.
+
+* 다만, 타인과 공유할 때, 혹은 미래의 내가 볼 땐 다소 헷갈릴 수도.
+
+* <u>코드를 가장 잘 아는 건 코드 쓸 때의 나 자신.</u>
+
+* 같은 작업이라도 여러 route가 있음.
 
 ```{r}
 
@@ -339,7 +403,7 @@ class(윤하)
 
 ```
 
-* 데이터프레임은 row = observation, column = variable 개념이라, 열 이름을 웬만하면 채우려고 하는데, 여기선 character vector 이름인 Yunha를 차용한 모습.
+* <u>데이터프레임은 row = observation, column = variable 개념</u>이라, 열 이름을 웬만하면 채우려고 하는데, 여기선 character vector 이름인 Yunha를 차용한 모습.
 
 * 벡터 이름 : 벡터 내용 = 변수 이름 : 관측치 느낌으로 해석한 듯.
 
@@ -350,6 +414,12 @@ matthew
 class(matthew)
 
 ```
+
+* <u>경제, 통계에서 다루는 데이터는 대개 2차원 + 변수 이름 확실 + observation 여러 개인 형태.</u>
+
+* R은 데이터프레임 형태를 기본으로 두고 있으며, Python에선 이를 구현하기 위해 `pandas` 라이브러리가 존재.
+
+* `pandas`는 panel data analysis의 약자. 물론 마스코트는 팬더.
 
 ### 7) 인덱싱
 
@@ -367,6 +437,14 @@ mat[2, 2] # mat 행렬의 (2, 2) 요소
 
 matthew$A # matthew 데이터프레임의 변수 A에 속한 값
 
+```
+
+* <u>`dataframe $ variable` 인덱싱은 정말 자주 사용.</u>
+
+* 하나의 열벡터로 추출하는 거라, `matthew$A[3]` 식으로 다시 한 번 인덱싱 가능.
+
+```{r}
+
 matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
 
 ```
@@ -375,11 +453,9 @@ matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
 
 * 실제 작업에도 용이한바, R의 데이터분석은 대개 데이터프레임 형태를 사용.
 
-* 이를 `Pyhton`에서 구현하기 위해 `Pandas` 라이브러리를 만듦.
-
 ## 4. Others
 
-**#** 주석처리
+**#** <u>주석처리</u>
 
 * 코드 설명 작성 : `print(a) # a를 출력한다`
 
@@ -387,13 +463,13 @@ matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
 
 **업데이트** R, RStudio 모두 꾸준히 새 버전이 나오지만, 구 버전을 사용해도 큰 문제 없음
 
-* R은 새로 설치하고 구 버전을 삭제하는 게 제일 간편. RStudio는 알아서 최신의 R을 인식해 사용.
+* R은 새로 설치하고 구 버전을 삭제하는 게 제일 간편. RStudio는 알아서 최근 설치한 R을 인식해 사용.
 
 * RStudio는 Help $\to$ Check for Updates 기능을 활용.
 
 * 패키지는 Tools $\to$ Check for Package Updates
 
-**Working Directory** 작업 공간(폴더)을 지정하자
+**Working Directory** <u>작업 공간(폴더)을 지정하자</u>
 
 * 외부 파일을 불러오거나, 외부로 저장할 일이 많음.
 
@@ -435,6 +511,8 @@ matrix(data = c(12, 17, 19, 21, 22, 25, 32, 34, 35),
 
 3) `iris` 처음 세 줄과 마지막 세 줄을 `head()`, `tail()` 함수로 출력하라.
 
+4) `iris` 데이터를 간단히 소개하라.
+
 **고급** 다음 코드의 문제점을 지적해보자. 수정본을 참고해도 좋다.
 
 ```{r, error = TRUE, message = FALSE}
@@ -472,7 +550,6 @@ TOMBOY
 
 ```
 
-
 \newpage
 
 # Day 2
@@ -483,7 +560,11 @@ TOMBOY
 
 ## 1. What is Tidyverse
 
-**Package for Packages** 데이터 분석을 위한 패키지의 모음집
+**Package for Packages** <u>데이터 분석을 위한 패키지의 모음집</u>
+
+* https://www.tidyverse.org/packages/
+
+* `Tidyverse` 생태계라 봐도 괜찮음.
 
 ```{r, eval = FALSE}
 
@@ -505,19 +586,19 @@ library(tidyverse) # tidyverse 패키지 장착
 
 * `stats::filter()` 식으로 풀네임을 써야 해당 함수 사용 가능.
 
-**And then, and then** 직관적인 연결 작업
+**And then, and then** <u>직관적인 연결 작업</u>
 
-* tidyverse 계열 함수들은 첫 번째 입력값을 data로 통일. `function(data, actions)` 개념.
+* <u>tidyverse 계열 함수들은 첫 번째 입력값을 data로 통일.</u> `function(data, actions)` 개념.
 
-* pipe operator `%>%`는 앞선 작업 결과물을 다음 함수의 첫 요소로 대입하는 기능
+* pipe operator `%>%`는 <u>앞선 작업 결과물을 다음 함수의 첫 요소로 대입</u>하는 기능
 
-* `x %>% f(y)` $\to$ `f(x, y)` 식으로 결합 사용하는 게 일반적.
+* <u>`x %>% f(y)` $\to$ `f(x, y)` 식으로 결합 사용</u>하는 게 일반적.
 
 **Key Setting** 두 가지 단축키 설정 권장
 
 * Tools $\to$ Modify Keyboard Shortcuts 에서 단축키를 확인, 변경할 수 있음.
 
-* 가장 자주 쓰는 `<-`, `%>%` 정도는 단축키를 활용하는 게 좋음.
+* <u>가장 자주 쓰는 `<-`, `%>%` 정도는 단축키를 활용하는 게 좋음.</u>
 
 * 인턴은 `Insert Assign Operator`를 `home`, `Insert Pipe Operator`를 `end`에 두고 사용.
 
@@ -535,6 +616,8 @@ read.xlsx('PSI 연습용.xlsx')
 
 ```
 
+* `setwd()` 함수로 작업 경로를 지정했고, 해당 폴더 내 excel 파일이 있음을 전제.
+
 ```{r, message = FALSE}
 
 PSI_ORIGINAL <- read.xlsx('PSI 연습용.xlsx') %>% 
@@ -546,19 +629,27 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 
 * `read.xlsx()` 함수의 첫 인자는 `xlsxFile` 으로, 해당 파일의 경로를 입력해야 함.
 
-* 정확한 경로와 이름을 적으면서, 확장자 명을 꼭 포함할 것.
+* 정확한 경로와 이름을 적으면서, <u>확장자 명을 꼭 포함할 것.</u>
 
 * 두 번째 인자는 `sheetName`, 미지정 시 첫 번째 시트를 로드한다. 다중 시트로 이뤄진 엑셀 파일이라면 시트 이름을 지정해주는 게 유용.
 
-* 데이터 프레임을 가져올 땐 `tibble()` 함수를 거쳐서 단정하게 만들자.
+* <u>데이터 프레임을 가져올 땐 `tibble()` 함수를 거쳐서 단정하게 만들자.</u>
 
-* 여담으로 `xlsxFile`, `sheetName` 처럼 영문 가운데 capital을 섞어주는 걸 camel 표기법이라 함.
+* 여담으로 `xlsxFile`, `sheetName` 처럼 영문 가운데 capital을 섞어주는 걸 <u>camel 표기법</u>이라 함.
 
 ### 2) 훑어보기
 
 ```{r}
 
 PSI_ORIGINAL %>% head() # 상위 순번 관측값만 표시, default = 6개 
+
+```
+
+* `head(n = 10)` 해서 상위 10개를 볼 수도 있음.
+
+* <u>tidyverse 함수가 아녀도 pipe operator를 사용할 수 있음. 시너지가 좋은 거지, 개별로도 powerful.</u>
+
+```{r}
 
 PSI_ORIGINAL %>% names() # 변수 이름
 
@@ -584,13 +675,15 @@ PSI_ORIGINAL %>% # 원본 데이터에서
 
 ```
 
-* `select(data_table, columns, ... )` 원하는 column 고르기. 위치 인덱스나 변수 명을 적으면 됨.
+* <u>`select(data_table, columns, ... )` 원하는 column 고르기.</u> 위치 인덱스나 변수 명을 적으면 됨.
 
-* `select(-1)` 식으로 쓰면, 첫 번째 열을 제외하고 모두 선택.
+* <u>`select(-1)` 식으로 쓰면, 첫 번째 열을 제외하고 모두 선택.</u>
 
 * 변수 명에 띄어쓰기가 있다면, 해당 이름 전체를 따옴표나 accent 기호로 감싸야 함.
 
-* `mutate(data_table, var_name = new_data, ...)` 새로운 열 만들기(덮어쓰기 가능).
+* <u>`mutate(data_table, var_name = new_data, ...)` 새로운 열 만들기</u>(덮어쓰기 가능).
+
+* 교재 내 함수 설명에서, 실제 인자값 네이밍을 적은 건 아님에 유의. 뉘앙스로 이해.
 
 ```{r}
 
@@ -602,11 +695,17 @@ PSI_RATE.2 <- PSI_RATE.1 %>% # 아까 하던 거에서
   mutate(비율 = round(비율, digits = 1)) %>% # 비율 값은 반올림해서 덮어씌우고
   slice(1:18) # 필요한 row만 선택하자.
 
+```
+
+* 객체를 나누면, 작업 과정을 분기할 수 있음. 일종의 save point.
+
+```{r}
+
 PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣기가 애매.
 
 ```
 
-* `slice(data_table, rows, ...)` 원하는 row 고르기. 
+* <u>`slice(data_table, rows, ...)` 원하는 row 고르기.</u> 
 
 ```{r}
 
@@ -619,6 +718,14 @@ APPENDIX.1 <- PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 17, 1
 * 완성품, 중간 작업물은 네이밍 규칙을 달리 가져가는 게 편하다.
 
 * 객체를 왕창 만들다보면 헷갈릴 일이 생기기 마련.
+
+* 인턴의 네이밍 규칙은 이렇다.
+
+* 임시 : `temp1`, `temp2`, ...
+
+* 중간작업 : `대문자_파트.버전`
+
+* 완성품은 다른 이름으로 저장.
 
 ### 4) 기상도 만들기
 
@@ -651,7 +758,7 @@ PSI_WEATHER.3 <- PSI_WEATHER.2[c(1, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 2
 
 colnames(PSI_WEATHER.3) <- c('구분', '업황', '내수', '수출', '생산수준', '투자액', '채산성')
 
-PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름
+PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름. 특히 가전 파트.
 
 ```
 
@@ -676,13 +783,15 @@ round(0.5) ; round2(0.5, 0) # 두 번째 인자 n은 digits
 
 ```
 
-* `function(factors, ...) { what to do }` 식으로 사용자 함수를 정의할 수 있음.
+* <u>`function(factors, ...) { what to do }` 식으로 사용자 함수를 정의할 수 있음.</u>
 
 * 아래 `mutate_at()` 함수에서 오류가 나서, n의 default 값만 `function(x, n = 0)` 으로 수정하자.
 
 * tidyverse 함수에선 직전 작업 값 '.' 으로 표현한다. `.$구분` 으로 적어도 해당 흐름 내에선 '작업 중이던 데이터프레임의 구분 열' 쯤으로 인식하는 셈.
 
 * `.vars`, `.funs`도 유사한 맥락의 네이밍인데, 설명하는 건 강의 레벨을 벗어나므로 스킵.
+
+* 궁금한 사람은 `purrr` 패키지 참고.
 
 ```{r}
 
@@ -700,6 +809,8 @@ APPENDIX.2 <- PSI_WEATHER.3 # 완성품 저장
 ```
 
 * `PSI_WEATER.2`, `PSI_WEATHER.3` 만드는 코드를 고치자.
+
+* 객체명을 따로 안 바꿔서, new version 으로 덮어씌우게 됨.
 
 * 객체 네이밍을 순차적으로 했어서, 수정할 부분을 빠르게 찾고, 해당 파트만 교체하는 게 어렵지 않다. 
 
@@ -751,14 +862,14 @@ USTRADE.1 %>% dim() # 변수 35개 -> 14개
 
 ```
 
-* 띄어쓰기가 포함된 변수 명은 앞 뒤를 '' 내지 ``로 감싸야 함.
+* 코드가 조금 난잡해서, 인쇄물로 보고 있다면 html 버전 교재도 참고하기 바람.
 
 ```{r, message = FALSE}
 
 library(haven) # dta 로드 패키지
 
 LINK <- read_dta('연계표 연습용.dta') %>% 
-  select(hsc, ksic5) # 국제무역코드(hscode), 한국표준산업분류(ksic5)만 선택
+  select(hsc, ksic5) # 국제무역코드(hscode), 한국표준산업분류의 세세분류(ksic5)만 선택
 
 ```
 
@@ -766,7 +877,7 @@ LINK <- read_dta('연계표 연습용.dta') %>%
 
 * R에서는 해당 파일을 haven 패키지를 사용해 입출력.
 
-* 비슷한 방식으로 타 프로그램 사용자와 co-work 가능.
+* <u>비슷한 방식으로 타 프로그램 사용자와 co-work 가능.</u>
 
 ```{r}
 
@@ -783,11 +894,11 @@ LINK.1 # number of rows가 6564 -> 6552로 축소
 
 ```
 
-* `filter(data_table, condition, ...)` 함수는 조건에 맞는 observation만 선택.
+* <u>`filter(data_table, condition, ...)` 함수는 조건에 맞는 observation만 선택.</u>
 
 * `is.na()` 함수는 결측치, 즉 `NA`인 경우 `TRUE`를 출력.
 
-* `!` 연산자는 부정, not을 의미.
+* <u>`!` 연산자는 부정, not을 의미.</u>
 
 * 따라서 observation인데, ksic5 변수가 NA인 경우는 배제하고 LINK.1에 저장하겠다는 것.
 
@@ -806,6 +917,18 @@ for (i in seq_along(MANUFACTURE_KOREA)) { # i = 1, 2, ..., 25에 대해 다음 �
   
 }
 
+```
+
+* `seq_along(vector)` 함수는 1:length(vector) 수열을 출력.
+
+* 1:6552 체크리스트(영벡터)에 v 표시(1) 채워가는 것.
+
+* 10으로 시작하면 체크, 11로 시작하면 체크, ... 
+
+* 손으로 하던 작업을 코드로 구현한 셈.
+
+```{r}
+
 temp1 %>% head() # temp1은 제조업인 경우 1이 채워진 벡터
 
 temp1 %>% sum() # 6413개 observation이 제조업에 해당
@@ -816,13 +939,17 @@ TESTER %>% head() # 1은 다시 TRUE로 변환
 
 ```
 
-* `seq_along(vector)` 함수는 1:length(vector) 수열을 출력.
-
 * 논리값은 숫자로 변환하면 0, 1이므로 `sum()`과 궁합이 좋음.
 
 ```{r}
 
 MANUFACTURE_WORLD <- LINK.1[TESTER, ]$hsc # 논리값을 인덱싱에 활용
+
+```
+
+* LINK.1인데, TESTER = TRUE인 row만 선택하고, hsc column만 추출.
+
+```{r}
 
 MANUFACTURE_WORLD %>% head() # 한국 분류로 제조업에 해당하는 hscode
 
@@ -833,16 +960,13 @@ MANUFACTURE_WORLD %>% head() # 한국 분류로 제조업에 해당하는 hscode
 USTRADE.2 <- USTRADE.1 %>% 
   filter(`Commodity Code` %in% MANUFACTURE_WORLD) %>% # 제조업 데이터만 선택
   arrange(Year, `Commodity Code`) %>% # 연도 순, HS code 순으로 정리
-  relocate(Year, `Commodity Code`, 
-           Commodity, `Trade Value (US$)`) # 주요 변수 앞으로 이동
+  relocate(Year, `Commodity Code`, Commodity, `Trade Value (US$)`) # 주요 변수 앞으로 이동
 
 write_csv(USTRADE.2, '미국수출 연계작업.csv') # 정리한 데이터셋을 csv로 저장
 
 ```
 
-* `x %in% y`는 y vector 내에 x라는 인수가 있다면 TRUE를 반환.
-
-* 변수, 객체 이름을 잘 지어야 헷갈리지 않음.
+* <u>`x %in% y` 연산은 y vector 내에 x라는 인수가 있다면 TRUE를 반환.</u>
 
 ## 4. Quiz
 
@@ -912,7 +1036,6 @@ CAR.3
 
 ```
 
-
 \newpage
 
 # Day 3
@@ -921,7 +1044,7 @@ CAR.3
 
 **Computers' Talk** 컴퓨터나 컴퓨터 프로그램 사이의 연결
 
-* language for computer 라서, 사람인 우리가 보고 쓰려면 일정 부분 배워야.
+* <u>language for computer 라서, 사람인 우리가 보고 쓰려면 일정 부분 배워야.</u>
 
 * 사람 보라고 만든 인터페이스는 UI(User Interface), 예컨대 삼성 갤럭시는 One UI 4.1
 
@@ -933,7 +1056,7 @@ CAR.3
 
 * https://kosis.kr/openapi/introduce/introduce_01List.jsp
 
-* 통계 데이터를 프로그램 상에서 바로 로드, 작업할 수 있음.
+* <u>통계 데이터를 프로그램 상에서 바로 로드, 작업할 수 있음.</u>
 
 * 호출키(+인증키), 항목 설정 등으로 이뤄진 URL을 통해 데이터를 받아옴.
 
@@ -941,17 +1064,35 @@ CAR.3
 
 ## 2. Exercise : 서비스업생산지수 업데이트
 
-**서비스업 생산지수** http://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1F01501&conn_path=I2
+**서비스업 생산지수** https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1KS2015
+
+**ISTANS 산업동향지수** https://istans.or.kr/su/newSuTab.do?scode=S359
+
+* kosis 원본(86개) $\to$ grc 매칭, 재분류(20개) $\to$ istans 업로드
+
+* 여기선 첫 번째 단계를 API 활용으로 대체해봄.
 
 ### 1) 데이터 이용 신청
 
 **최초 사용자가, URL 생성 방식으로 진행함을 가정**
 
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 1.jpg')
+
+```
+
 * 서비스이용 $\to$ 통계자료 탭을 눌러서 간단한 신청 폼을 작성.
+
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 2.jpg')
+
+```
 
 * 자료등록 메뉴로 이동, 통계조사명 란에 '서비스업동향조사' 입력하고 검색.
 
-* 서비스업동향조사 내 통계표가 여럿 나오는데, 2페이지의 산업별 서비스업생산지수의 사용여부 체크하고 자료등록.
+* 서비스업동향조사 내 통계표가 여럿 나오는데, 2페이지의 산업별 서비스업생산지수의 사용여부 체크하고 통계표등록.
 
 ### 2) 상세 조건 설정
 
@@ -960,6 +1101,12 @@ CAR.3
 * 통계청 포털에서 체크박스 누르던 파트를 옮겨놓은 것.
 
 * 필요한 데이터는 **불변/계절조정지수**의 최근값인데, **1레벨의 총지수**와 **3레벨 모든 항목**이 담겨있어야 함.
+
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 3.jpg')
+
+```
 
 * 조회구분 = 시계열 선택
 
@@ -989,9 +1136,21 @@ CAR.3
 
 * 우선 불변지수 하나만 체크해서 URL 생성.
 
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 4.jpg')
+
+```
+
 * 조금 기다리면 항목별(산업별)로 총 86개의 URL이 만들어짐.
 
 ### 3) 단일 데이터 로드
+
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 5.jpg')
+
+```
 
 * 첫 번째 **불변지수x수도업**의 URL 보기를 클릭해보자.
 
@@ -1015,7 +1174,7 @@ SERVICE
 library(tidyverse)
 library(jsonlite)
 
-URL <- 'https://kosis.kr/openapi/statisticsData.do?method=getList&apiKey=OTYwMWVjNTNmMmUxMjAyMGI5MjdkMjEwM2E4NTQ1OGQ=&format=json&jsonVD=Y&userStatsId=bhc5754/101/DT_1KS2015/2/1/20220503151131_1&prdSe=M&newEstPrdCnt=3'
+URL <- 'https://kosis.kr/openapi/statisticsData.do?method=getList&apiKey=OTYwMWVjNTNmMmUxMjAyMGI5MjdkMjEwM2E4NTQ1OGQ=&format=json&jsonVD=Y&userStatsId=bhc5754/101/DT_1KS2015/2/3/20220519124919_1&prdSe=M&newEstPrdCnt=3'
 
 SERVICE <- fromJSON(URL) %>% tibble()
 
@@ -1023,11 +1182,11 @@ SERVICE
 
 ```
 
-* `fromJSON(source, ...)` 함수는 URL, 로컬 JSON파일 등을 읽어서 데이터 프레임으로 출력.  
+* <u>`fromJSON(source, ...)` 함수는 URL, 로컬 JSON파일 등을 읽어서 데이터 프레임으로 출력.</u>  
 
 * 최근 3개월 자료를 default로 설정해둔 바, 3개의 row가 로드됨.
 
-* 16개의 column이 생성되었는데, 네이밍 요령은 **개발 가이드**란 이름으로 다음에서 제공.
+* 16개의 column이 생성되었는데, 네이밍 요령은 <u>**개발 가이드**</u>란 이름으로 다음에서 제공.
 
 * https://kosis.kr/openapi/devGuide/devGuide_0201List.jsp
 
@@ -1043,6 +1202,12 @@ temp <- SERVICE %>%
          C1, # 산업 코드
          DT) %>% # 지수값
   mutate(DT = as.double(DT)) # 값은 숫자 클래스로 변경
+
+```
+
+* 주석을 달아주고자 엔터로 분기.
+
+```{r}
   
 colnames(temp) <- c('통계', '시점', '지수', '산업', '코드', '값') # 직관적인 네이밍으로 변경
 
@@ -1066,9 +1231,13 @@ SERVICE.1 # 필요한 값만 정리
 
 * 같은 조건에서 URL을 다중 생성하다보니, 다른 부분은 동일하더라도, 구별 차원에서 숫자를 달리 매겨놓은 것.
 
-* 해당 숫자를 매개로 `for()` 구문을 사용하면 반복 작업을 할 수 있겠다.
+* <u>해당 숫자를 매개로 `for()` 구문을 사용하면 반복 작업을 할 수 있겠다.</u>
 
 * Day 2의 Advanced에 있던 내용과 유사하다. 아래 코드를 차용해도 좋지만, 가급적 대용량 통계자료 신청 기능을 이용하자.
+
+* 왜냐면, 이하 내용은 대처법에 가깝고, 아마 통계청에서 요정도는 가공해서 단일 URL로 제공해줄 터라.
+
+* 전체 코드를 작성하고, 설명을 달아둔 것이니, 한 번 overview 하고서 부분별로 읽어보기 바람.
 
 ```{r, eval = FALSE}
 
@@ -1083,11 +1252,11 @@ INDEX.2 <- '계절조정지수 URL 고유번호'
 
 * #을 이용한 주석은 코드 실행되지 않는 바, 소제목 대용으로도 좋음.
 
-* 비슷한 내용의 코드라면 덩어리 지어 직관적으로 보이게 하는 것.
+* <u>비슷한 내용의 코드라면 덩어리 지어 직관적으로 보이게 하는 것.</u>
 
 * 코드 구성은 같지만, 개인화된 정보를 기입해야 되는 경우가 있음.
 
-* parameter를 앞으로 빼두면 이하 코드에 자동 적용되니 편함.
+* <u>parameter를 앞으로 빼두면 이하 코드에 자동 적용되니 편함.</u>
 
 * 인턴은 이를 what do you need 코너로 만들어 작성하는 편.
 
@@ -1118,7 +1287,7 @@ BASE <- paste0('https://kosis.kr/openapi/statisticsData.do?method=getList', # �
 
 ```
 
-* 개인 URL은 여러 부분으로 분기될 수 있음.
+* 개인 URL은 여러 파트로 분기될 수 있음.
 
 * 본 예시에선 `&`을 기준으로 인자가 나눠짐.
 
@@ -1140,7 +1309,7 @@ NUMBER <- 1:86 # URL 개수
 
 * 물론 실제 코드 작성은 반대로 이뤄짐. like 역진귀납.
 
-* 구체적으로 URL 1개 $\to$ 그 코드를 for로 감싸서 URL 84개 $\to$ 그걸 또 감싸서 84*2개
+* 구체적으로 URL 1개 $\to$ 그 코드를 for로 감싸서 URL 86개 $\to$ 그걸 또 감싸서 86x2개
 
 * 따라서 내부 코드만 잘 짜두면 반복은 쉬움.
 
@@ -1175,10 +1344,10 @@ for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
                   '&prdSe=', 'M', # 주기 : Month
                   '&newEstPrdCnt=', '1') # 최근 1개 자료
     
-    temp2 <- tryCatch(fromJSON(URL) %>% # fromJSON ~ select 함수를 실행하되,
-                      tibble() %>% 
-                      mutate(번호 = i) %>% 
-                      select(번호, PRD_DE, ITM_NM, C1_NM, C1, DT),
+    temp2 <- tryCatch(expr = fromJSON(URL) %>% # fromJSON ~ select 함수를 실행하되,
+                             tibble() %>% 
+                             mutate(번호 = i) %>% 
+                             select(번호, PRD_DE, ITM_NM, C1_NM, C1, DT),
                       error = function(e) tibble(NULL)) # 오류(데이터 부재) 발생하면 스킵
     
     temp1 <- rbind(temp2, temp1) # stacking
@@ -1199,11 +1368,11 @@ for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
 
 * 같은 column으로 구성된 a, b 데이터를 row 연장해서 붙임.
 
-* 5x10, 10x10 데이터 테이블을 `rbind()`로 묶는다면, 15*10 데이터 테이블이 됨.
+* 5x10, 10x10 데이터 테이블을 `rbind()`로 묶는다면, 15x10 데이터 테이블이 됨.
 
-* 여기선 0x0, 1x6 데이터를 묶어서 저장하고, 그 1x6 데이터에 새로운 1x6을 더하고...
+* <u>여기선 0x0, 1x6 데이터를 묶어서 저장하고, 그 1x6 데이터에 새로운 1x6을 더하고...</u>
 
-* `(n+1)x6 = nx6 + 1x6` 식으로 지정해 쌓아가는 것.
+* `(n+1)x6 <- nx6 + 1x6` 식으로 지정해 쌓아가는 것.
 
 * `tryCatch(function, 에러대처, ...)` 함수는 간혹 통계 데이터가 없어서 에러, loop 정지되는 경우가 있기에 작성. 
 
@@ -1223,6 +1392,12 @@ rm(list = c('temp1', 'temp2', 'temp3')) # 임시 객체 삭제
 
 colnames(DATA)[2:6] <- c('시점', '지수', '산업', '코드', '값') # 변수명 변경
 
+```
+
+* `rm(list = ls())` 하면 모든 객체가 삭제된다.
+
+```{r, eval = FALSE}
+
 # 5. export
 
 write.xlsx(DATA, '서비스업생산지수 업데이트.xlsx') # 엑셀 파일로 저장
@@ -1241,7 +1416,6 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 
 * 번호는 오류 체크용(오류나면 해당 번호 부재)으로 만들었던지라, 최종 결과물에 굳이 담을 필요는 없음.
 
-
 \newpage
 
 # Day 4
@@ -1250,13 +1424,15 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 
 **Web Browser Automation** 크롬, 엣지 등 인터넷 브라우저 내 작업을 대신해줌
 
-* URL 접속, 텍스트 수집은 물론, 버튼 클릭, 텍스트 입력 등도 가능
+* <u>URL 접속, 텍스트 수집은 물론, 버튼 클릭, 텍스트 입력 등도 가능</u>
 
 * 웹 상 반복 작업을 하는 경우가 많은바, 자동화 스킬을 익혀두면 매우 편리
 
 * R에서는 `RSelenium` 패키지를 로드해 코드 작성.
 
-**Setting** 셀레늄 서버, 드라이버 2종, 크롬 브라우저, java가 필요
+* Python에도 똑같은 라이브러리가 있고, 코드도 비슷해서 Python 사례도 참고 가능.
+
+**Setting** <u>셀레늄 서버, 드라이버 2종, 크롬 브라우저, java가 필요</u>
 
 * (깃허브) selenium-server-standalone-4.0.0-alpha-1.jar
 
@@ -1336,11 +1512,11 @@ BUTTON_LOGIN$clickElement() # 로그인 버튼 클릭
 
 * 사람이 웹 브라우저 상에서 하는 행동을 코드로 본딴 것.
 
-* `REMDR$findElement(selector, text, ...)` 함수는 실행 당시 페이지 기준으로 데이터를 수집.
+* <u>`REMDR$findElement(selector, text, ...)` 함수는 실행 당시 페이지 기준으로 데이터를 수집.</u>
 
 * `xpath`는 페이지 각 요소의 고유 위치 정보.
 
-* 우클릭 $\to$ 검사(inspect) $\to$ 해당 html 파트 우클릭 $\to$ copy xpath
+* <u>우클릭 $\to$ 검사(inspect) $\to$ 해당 html 파트 우클릭 $\to$ copy xpath</u>
 
 * 버튼과 입력창을 xpath로 찾아 지정하고, 필요한 입력/클릭을 명령으로 대체.
 
@@ -1365,6 +1541,12 @@ terminalExecute(command = TERM_COMMAND)
 
 REMDR = remoteDriver(port = 4445, browserName = 'chrome')
 REMDR$open() # 크롬 오픈
+
+```
+
+* 이하 내용도, `for()` 구문 내의 함수들을 단 건 적용해보고, 차차 확장해나가는 식으로 학습해보자.
+
+```{r, eval = FALSE}
 
 # 3. crawling
 
@@ -1425,13 +1607,19 @@ for (i in seq_along(PERIOD)) { # i = 1, 2, ..., 22 마다 다음 작업 실행
 
 ```
 
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+
+knitr::include_graphics('그림 7.jpg')
+
+```
+
 * `html` 파일은 수많은 부분집합으로 이뤄짐. A $\supset$ B, C $\supset$ D, E, F
 
-* `html_elements()` 함수는 `html`의 부분집합을 찾아가는 역할.
+* <u>`html_elements()` 함수는 `html`의 부분집합을 찾아가는 역할.</u>
 
 * 예컨대 F를 찾고 싶다면, `html_elements('A') %>% html_elements('B') %>% html_elements('F')`
 
-* 하지만 모든 집합명을 적어야 되는 건 아님. 루트만 잘 제시해주면 됨.
+* <u>하지만 모든 집합명을 적어야 되는 건 아님. 루트만 잘 제시해주면 됨.</u>
 
 * "시청 지나 다리 건너면 큰 건물이 있어요. 거기서 F 사무관을 불러주세요."
 
@@ -1443,7 +1631,7 @@ for (i in seq_along(PERIOD)) { # i = 1, 2, ..., 22 마다 다음 작업 실행
 
 * 인턴은 상기 코드에서 `for()` 문을 가장 마지막에 작성했다.
 
-* 단일 링크, 여기선 단일 연도 데이터로 먼저 테이블을 만들어보고, 이를 반복/확장시킨 것.
+* <u>단일 링크, 여기선 단일 연도 데이터로 먼저 테이블을 만들어보고, 이를 반복/확장시킨 것.</u>
 
 ```{r, eval = FALSE}
 
@@ -1455,7 +1643,7 @@ write.xlsx(MASTERPIECE, '멜론차트.xlsx') # 차트 원본 데이터를 엑셀
 
 * `MASTERPIECE` 객체는 매번 크롤링해서 가져오게 돼서 번거로움.
 
-* 아예 로컬 파일로 저장해두고, 얘를 로드해 작업하는 게 편함.
+* <u>아예 로컬 파일로 저장해두고, 얘를 로드해 작업하는 게 편함.</u>
 
 ```{r}
 
@@ -1468,6 +1656,8 @@ MELON # 22개년도 멜론차트 TOP100 데이터
 filter(MELON, RANK == 1)$TITLE # 연도별 1위곡
 
 ```
+
+* pipe operator를 안 쓰고, `filter()` 첫 자리에 data_table을 넣은 모습.
 
 ```{r}
 
@@ -1511,6 +1701,12 @@ UAENA <- MELON %>%
 
 UAENA # 음반 발표가 없던 2016년, 또는 연말에서야 나온 2013년을 제외하면 준수한 차트인 성적
 
+```
+
+* `%in%` 대신 `filter(SINGER == '아이유' | SINGER == 'IU')` 써도 무방.
+
+```{r}
+
 # 6-4. 아이유의 성장은 계속될까?
 
 UAENA_GRAPH <- UAENA %>% # 6-3 분석 결과를
@@ -1521,3 +1717,9 @@ UAENA_GRAPH <- UAENA %>% # 6-3 분석 결과를
 UAENA_GRAPH # 라일락 대박, 다음 앨범도 기대
 
 ```
+
+* `aes`는 aesthetic, 그래프 변수 및 visual에 관해 전역적으로 설정.
+
+* R에서는 자연로그가 default.
+
+* `ggplot` 함수, 요소는 `+`로 연결.
