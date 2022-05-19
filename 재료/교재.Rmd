@@ -1,15 +1,15 @@
 ---
 title: fasteR
 author: Hyeongchan Bae
-date: JUNE 2022
+date: June 2022
 output:
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
   html_document:
     toc: true
     toc_float: true
     theme: yeti
-  pdf_document:
-    toc: true
-    latex_engine: xelatex
 mainfont: NanumGothic
 monofont: NanumGothic
 fontsize: 12
@@ -50,6 +50,8 @@ linestretch: 1.5
 
 * Download zip 기능을 쓰거나, R 파일을 열어 코드만 체크하는 식으로 이용.
 
+* html 버전 교재는 <u>중요 부분에 밑줄</u>, 긴 코드도 잘림없이 표시되니 pdf 버전과 함께 보길 권장.
+
 ## 2. Something to Know
 
 ### 1) "모두 다 같은 아마추어야"
@@ -59,6 +61,8 @@ linestretch: 1.5
 * 모든 과정을 R로 수행할 필요는 없으니, <u>잘 안 되면 데이터를 엑셀, STATA 등으로 옮겨 처리해오셔도 좋습니다.</u>
 
 * 인턴도 R이 익숙해지면서, 여러 프로그램에 걸쳐있던 작업을 하나씩 구현해보잔 마인드로 배우고 있습니다.
+
+\newpage
 
 ### 2) R 파일(확장자)
 
@@ -84,9 +88,7 @@ linestretch: 1.5
 
 * html, pdf, word 등을 만들기 위해 Markdown 문법으로 작성한, 코드 친구쯤 되는 녀석.
 
-* 본 문서도 마크다운으로 작성. 소위 'R로 논문 쓴다' 할 때 등장.
-
-* tex 문법도 지원해, 코드나 수식을 넣기 편함.
+* 본 문서도 마크다운으로 작성. 소위 'R로 논문 쓴다' 할 때 등장. tex 문법 지원.
 
 ### 3) 한글에 유독 취약한 R
 
@@ -211,6 +213,8 @@ rnorm(5, 0, 1)
 
 ```
 
+\newpage
+
 ### 2) 텍스트
 
 ```{r}
@@ -250,6 +254,8 @@ paste('이제와', '뒤늦게', '무엇을 더 보태려하나') # 한 칸씩 �
 paste('이제와', '뒤늦게', '무엇을 더 보태려하나', sep = '둠칫') # 사실 sep = ' ' 인자가 숨어있던 것. 바꿀 수도 있음.
 
 ```
+
+\newpage
 
 ### 3) 객체
 
@@ -383,6 +389,8 @@ class(mat)
 
 ```
 
+\newpage
+
 ### 6) 데이터프레임
 
 ```{r}
@@ -453,6 +461,8 @@ matthew[2, 2] # matthew 데이터프레임의 (2, 2) 요소
 
 * 실제 작업에도 용이한바, R의 데이터분석은 대개 데이터프레임 형태를 사용.
 
+\newpage
+
 ## 4. Others
 
 **#** <u>주석처리</u>
@@ -490,6 +500,8 @@ setwd('C:/Users/KIET/Documents/GitHub') # \를 /로 교체해줘야 함.
 * R에서 `\` 문자는 정규표현식의 하나로, 슬래시 표현 외에 약속된 다른 기능을 담당함. 
 
 * 그런 차에 `/`를 경로 기술에 대신 사용하는 듯. 
+
+\newpage
 
 ## 5. Quiz
 
@@ -530,6 +542,8 @@ I-DLE_LYLICS <- c('Look at you 넌 못 감당해 날',
 TOMBOY <- data.frame(I-DLE_MEMBERS, I-DLE_LYLICS)
 
 ```
+
+\newpage
 
 ```{r}
 
@@ -618,6 +632,8 @@ read.xlsx('PSI 연습용.xlsx')
 
 * `setwd()` 함수로 작업 경로를 지정했고, 해당 폴더 내 excel 파일이 있음을 전제.
 
+\newpage
+
 ```{r, message = FALSE}
 
 PSI_ORIGINAL <- read.xlsx('PSI 연습용.xlsx') %>% 
@@ -636,6 +652,8 @@ PSI_ORIGINAL # tibble을 사용하니, 직전보단 깔끔하게 저장된다. c
 * <u>데이터 프레임을 가져올 땐 `tibble()` 함수를 거쳐서 단정하게 만들자.</u>
 
 * 여담으로 `xlsxFile`, `sheetName` 처럼 영문 가운데 capital을 섞어주는 걸 <u>camel 표기법</u>이라 함.
+
+\newpage
 
 ### 2) 훑어보기
 
@@ -677,13 +695,11 @@ PSI_ORIGINAL %>% # 원본 데이터에서
 
 * <u>`select(data_table, columns, ... )` 원하는 column 고르기.</u> 위치 인덱스나 변수 명을 적으면 됨.
 
-* <u>`select(-1)` 식으로 쓰면, 첫 번째 열을 제외하고 모두 선택.</u>
-
-* 변수 명에 띄어쓰기가 있다면, 해당 이름 전체를 따옴표나 accent 기호로 감싸야 함.
+* `select(-1)` 식으로 쓰면, 첫 번째 열을 제외하고 모두 선택.
 
 * <u>`mutate(data_table, var_name = new_data, ...)` 새로운 열 만들기</u>(덮어쓰기 가능).
 
-* 교재 내 함수 설명에서, 실제 인자값 네이밍을 적은 건 아님에 유의. 뉘앙스로 이해.
+* 인턴의 함수 설명이, 실제 인자값 네이밍을 적은 건 아님에 유의. 뉘앙스로 이해.
 
 ```{r}
 
@@ -707,6 +723,8 @@ PSI_RATE.2 # 좋긴 한데, 보도자료는 업종 순서가 달라서 붙여넣
 
 * <u>`slice(data_table, rows, ...)` 원하는 row 고르기.</u> 
 
+\newpage
+
 ```{r}
 
 PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 17, 18), ] # 순서를 바꾸면 되지
@@ -727,6 +745,8 @@ APPENDIX.1 <- PSI_RATE.2[c(2, 3, 4, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 17, 1
 
 * 완성품은 다른 이름으로 저장.
 
+\newpage
+
 ### 4) 기상도 만들기
 
 ```{r}
@@ -738,6 +758,8 @@ PSI_WEATHER.1 <- PSI_ORIGINAL %>%
 PSI_WEATHER.1
   
 ```
+
+\newpage
 
 ```{r}
 
@@ -752,6 +774,8 @@ PSI_WEATHER.2
 
 * `.funs`에 입력한 함수를 `.vars`에 입력한 변수에 일괄 적용하고 덮어씌움.
 
+\newpage
+
 ```{r}
 
 PSI_WEATHER.3 <- PSI_WEATHER.2[c(1, 9, 8, 5, 7, 6, 11, 12, 10, 15, 14, 13, 16, 2, 3, 4), ]
@@ -765,6 +789,8 @@ PSI_WEATHER.3 # 갖다 붙이려 했는데, 숫자가 묘하게 다름. 특히 �
 * R의 `round()` 함수는 `round(0.5) = 0` 으로 계산해버림.
 
 * 그럼 어떻게 해야할까. 뭐 구글 가야죠.
+
+\newpage
 
 ```{r}
 
@@ -792,6 +818,8 @@ round(0.5) ; round2(0.5, 0) # 두 번째 인자 n은 digits
 * `.vars`, `.funs`도 유사한 맥락의 네이밍인데, 설명하는 건 강의 레벨을 벗어나므로 스킵.
 
 * 궁금한 사람은 `purrr` 패키지 참고.
+
+\newpage
 
 ```{r}
 
@@ -830,6 +858,8 @@ write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
 
 * 가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.
 
+\newpage
+
 ## 3. Advanced : 미국 수출데이터 가공
 
 ```{r, message = FALSE}
@@ -847,6 +877,8 @@ USTRADE <- read_csv('미국수출 연습용.csv')
 USTRADE # read_csv() 사용하면 tibble 형태로 저장
 
 ```
+
+\newpage
 
 ```{r}
 
@@ -900,6 +932,8 @@ LINK.1 # number of rows가 6564 -> 6552로 축소
 
 * 따라서 observation인데, ksic5 변수가 NA인 경우는 배제하고 LINK.1에 저장하겠다는 것.
 
+\newpage
+
 ```{r}
 
 MANUFACTURE_KOREA <- seq(10, 34) # ksic5에서 제조업 파트는 10~34로 시작
@@ -931,15 +965,17 @@ temp1 %>% head() # temp1은 제조업인 경우 1이 채워진 벡터
 
 temp1 %>% sum() # 6413개 observation이 제조업에 해당
 
-TESTER <- temp1 %>% as.logical() # 논리값으로 변경
-
-TESTER %>% head() # 1은 다시 TRUE로 변환
-
 ```
 
 * 논리값은 숫자로 변환하면 0, 1이므로 `sum()`과 궁합이 좋음.
 
+\newpage
+
 ```{r}
+
+TESTER <- temp1 %>% as.logical() # 논리값으로 변경
+
+TESTER %>% head() # 1은 다시 TRUE로 변환
 
 MANUFACTURE_WORLD <- LINK.1[TESTER, ]$hsc # 논리값을 인덱싱에 활용
 
@@ -966,6 +1002,8 @@ write_csv(USTRADE.2, '미국수출 연계작업.csv') # 정리한 데이터셋�
 
 * <u>`x %in% y` 연산은 y vector 내에 x라는 인수가 있다면 TRUE를 반환.</u>
 
+\newpage
+
 ## 4. Quiz
 
 **초급** `datasets::mtcars` 데이터를 가져와 다음을 해결해보자.
@@ -989,6 +1027,8 @@ CAR.1 <- datasets::mtcars %>%
 CAR.1
 
 ```
+
+\newpage
 
 **중급** 다음 작업을 이어서 해보자.
 
@@ -1017,6 +1057,8 @@ CAR.2
 sum(CAR.2$hp) / 7
 
 ```
+
+\newpage
 
 **고급** 다음 작업을 이어서 해보자.
 
@@ -1069,6 +1111,8 @@ CAR.3
 * kosis 원본(86개) $\to$ grc 매칭, 재분류(20개) $\to$ istans 업로드
 
 * 여기선 첫 번째 단계를 API 활용으로 대체해봄.
+
+\newpage
 
 ### 1) 데이터 이용 신청
 
@@ -1190,6 +1234,8 @@ SERVICE
 
 * **통계표선택 방법**의 **출력결과** 항목을 보면 해당 column에 어떤 variable이 담겼는지 알 수 있음.
 
+\newpage
+
 ```{r}
 
 temp <- SERVICE %>% 
@@ -1218,6 +1264,8 @@ SERVICE.1 # 필요한 값만 정리
 ```
 
 * 다루는 객체가 많아질수록 헷갈리기 마련. 임시 객체를 활용하는 것도 방법.
+
+\newpage
 
 ## 3. Advanced : 다중 데이터 로드
 
@@ -1323,6 +1371,8 @@ DATA <- tibble() # 데이터 담을 빈 그릇
 
 * Day 2에서 영벡터 만들었던 것과 같은 맥락.
 
+\newpage
+
 ```{r, eval = FALSE}
 
 # 3. data load
@@ -1361,6 +1411,8 @@ for (k in seq_along(CORE)) { # k = 1, 2에 대해서 다음 작업 실행
 }
 
 ```
+
+\newpage
 
 * 용례가 어렵지만, `rbind(a, b)`는 자주 등장하는 기본 함수.
 
@@ -1403,6 +1455,8 @@ write.xlsx(DATA, '서비스업생산지수 업데이트.xlsx') # 엑셀 파일�
 ```
 
 * 여기까지 덥석 이해했다면, 당신은 본 강의 레벨을 아득히 넘는다.
+
+\newpage
 
 ```{r}
 
@@ -1450,6 +1504,8 @@ read.xlsx('서비스업생산지수 업데이트.xlsx') %>%
 
 * chromedriver.exe : chromedriver.chromium.org 접속 $\to$ 같은 버전 클릭, 다운로드
 
+\newpage
+
 ## 2. Exercise : 업무포털 로그인
 
 **산업연구원 업무포털** https://ep.kiet.re.kr/
@@ -1484,11 +1540,13 @@ REMDR = remoteDriver(port = 4445, browserName = 'chrome') # 브라우저로 크�
 
 * (윈도우 기준) 명령 프롬프트를 켜서, 'java ... port 4445' 문구를 입력하는 게 세팅 과정.
 
-* 이를 반복하기가 번거로우니, RStudio 내장 터미널 활용하는 식으로 대체.
+* <u>이를 반복하기가 번거로우니, RStudio 내장 터미널 활용하는 식으로 대체.</u>
 
 * `REMDR`는 일종의 list 객체. 기능을 사용할 땐 `REMDR$function()` 형태로 작성.
 
 * 개인 컴퓨터에서 잘 안 되는 경우 java 설치, 방화벽 개인/공용 설정 권장
+
+\newpage
 
 ```{r, eval = FALSE}
 
@@ -1517,6 +1575,8 @@ BUTTON_LOGIN$clickElement() # 로그인 버튼 클릭
 * <u>우클릭 $\to$ 검사(inspect) $\to$ 해당 html 파트 우클릭 $\to$ copy xpath</u>
 
 * 버튼과 입력창을 xpath로 찾아 지정하고, 필요한 입력/클릭을 명령으로 대체.
+
+\newpage
 
 ## 3. Advanced : 아이유 Top 100 수록곡
 
@@ -1631,6 +1691,8 @@ knitr::include_graphics('그림 7.jpg')
 
 * <u>단일 링크, 여기선 단일 연도 데이터로 먼저 테이블을 만들어보고, 이를 반복/확장시킨 것.</u>
 
+\newpage
+
 ```{r, eval = FALSE}
 
 # 4. export(save)
@@ -1671,6 +1733,12 @@ SUPERSTAR <- MELON %>%
 
 SUPERSTAR # 빅뱅, 아이유가 31곡으로 동점
 
+```
+
+\newpage
+
+```{r}
+
 # 6-2. 아이유의 TOP100 수록곡은?
 
 DLWLRMA <- MELON %>%
@@ -1688,6 +1756,8 @@ DLWLRMA # 밤편지 최고
 
 * 매번 최신 값으로 업데이트 해야되는 데이터가 있다면, 자동화 코드를 짜보는 게 어떨까.
 
+\newpage
+
 ```{r}
 
 # 6-3. 연도별 아이유 LIKE 총량은?
@@ -1702,6 +1772,8 @@ UAENA # 음반 발표가 없던 2016년, 또는 연말에서야 나온 2013년�
 ```
 
 * `%in%` 대신 `filter(SINGER == '아이유' | SINGER == 'IU')` 써도 무방.
+
+\newpage
 
 ```{r, fig.align = 'center'}
 
