@@ -830,8 +830,6 @@ write.xlsx(x = list(APPENDIX.1, APPENDIX.2), # 완성품 두 개를
 
 * 가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.
 
-\newpage
-
 ## 3. Advanced : 미국 수출데이터 가공
 
 ```{r, message = FALSE}
@@ -1720,6 +1718,6 @@ UAENA_GRAPH # 라일락 대박, 다음 앨범도 기대
 
 * `aes`는 aesthetic, 그래프 변수 및 visual에 관해 전역적으로 설정.
 
-* R에서는 자연로그가 default.
+* `log()` 함수는 자연로그가 default.
 
 * `ggplot` 함수, 요소는 `+`로 연결.

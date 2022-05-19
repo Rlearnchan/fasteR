@@ -1716,9 +1716,9 @@ Encoding 기능을 활용해 대처하는 방법도 있음.</p></li>
 옵션)가 있음.</li>
 </ul>
 <pre class="r"><code>rnorm(n = 5, mean = 0, sd = 1) # n(0, 1) 분포에서 5개 난수 생성</code></pre>
-<pre><code>## [1] -0.7254584 -0.7182946 -0.8350938 -0.6537619  2.4475501</code></pre>
+<pre><code>## [1] -0.4508200  0.6445167  0.1805901  0.2730238  0.4497183</code></pre>
 <pre class="r"><code>stats::rnorm(n = 5, mean = 0, sd = 1) # stats 패키지의 rnorm() 함수</code></pre>
-<pre><code>## [1] -0.67691027  0.05424000 -0.09204367  0.59653786 -0.68578657</code></pre>
+<pre><code>## [1]  1.08041562 -0.25543372 -0.08562803 -0.89399352 -0.46284572</code></pre>
 <ul>
 <li><p>기본 패키지, 혹은 <code>library()</code> 로 장착한 패키지의
 함수는 <code>::</code> 표기를 사용하지 않아도 됨.</p></li>
@@ -2514,7 +2514,6 @@ PSI_WEATHER.3</code></pre>
 등을 원소로 가질 수 있음.</p></li>
 <li><p>가끔 list를 입력 인자로 요구하는 함수가 있으니 알아두자.</p></li>
 </ul>
-<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div id="advanced-미국-수출데이터-가공" class="section level2">
@@ -3399,7 +3398,7 @@ UAENA_GRAPH # 라일락 대박, 다음 앨범도 기대</code></pre>
 <ul>
 <li><p><code>aes</code>는 aesthetic, 그래프 변수 및 visual에 관해
 전역적으로 설정.</p></li>
-<li><p>R에서는 자연로그가 default.</p></li>
+<li><p><code>log()</code> 함수는 자연로그가 default.</p></li>
 <li><p><code>ggplot</code> 함수, 요소는 <code>+</code>로 연결.</p></li>
 </ul>
 </div>
